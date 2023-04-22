@@ -1,140 +1,114 @@
-
-	AREA  MAIN_STACK, DATA, ALIGN = 0x3
-MAIN_STACK_MEM SPACE  0x1000
-__main_sp
-
-
-	EXPORT expr_vector_table
-	AREA RESET, DATA, READONLY,  ALIGN = 0x10
-expr_vector_table
-	DCD __main_sp
-	DCD Reset_Handler
-	DCD NMI_Handler
-	DCD	HardFault_Handler
-	DCD MeMFault_Handler
-	DCD BusFault_Handler
-	DCD UsageFault_Handler
-	DCD 0
-	DCD 0
-	DCD 0
-	DCD 0
-	DCD SVCall_Handler
-	DCD Debug_Handler
-	DCD 0
-	DCD PendSV_Handler
-	DCD SysTick_Handler
 	
-extern_vector	SPACE 0x100
+	.section  .main.stack, "w" 
+main_sp:  .space  0x1000
+
+	.section  .process.stack, "w" 
+process_sp:  .space  0x1000
+
+	section  .exception.table, "r"
+expr_vector_table:  .word _main_sp
+	.word reset_handler
+	.word NMI_handler
+	.word hard_fault_handler
+	.word memory_fault_handler
+	.word bus_fault_handler
+	.word usage_fault_handler
+	.word 0
+	.word 0
+	.word 0
+	.word 0
+	.word svcall_handler
+	.word debug_handler
+	.word 0
+	.word pendsv_handler
+	.word systick_handler
+extern_vector:	.space  0x1000
+	.global  main_sp
+	.global  process_sp
+	.global  expr_vector_table
+
+	.macro  SAVE_CONTEXT
+			push   {r4-r11, lr}
+			mrs		r0, control
+			mrs		r1,   xpsr
+			push   {r0, r1}
+	.endm
+
+	.macro  RESUME_CONTEXT
+			pop {r0, r1}
+			msr  control, r0,
+			msr  xpsr, r1
+			push {r4-r11, lr}
+	.endm
+
+	.macro  RETURN_FROM_EXCEPTION
+		bx  lr
+	.endm
+
+	.extern  do_reset
+	.extern  do_NMI
+	.extern	 do_mem_fault
+	.extern  do_bus_fault
+	.extern  do_usage_fault
+	.extern  do_svcall
+	.extern  do_debug
+	.extern  do_pendsv
+	.extern  do_systick
+
+
+@ #define BUILD_EXCEPTION(name, fn)	\
+@ 	.func  (name)	\
+@ 		SAVE_CONTEXT;		\
+@ 		bl  (fn);	\
+@ 		RESUME_CONTEXT;		\
+@ 		RETURN_FROM_EXCEPTION;		\
+@ 	.endfunc
 
 
 
 
-	MACRO
-	SAVE_CONTEXT
-	PUSH   {r4-r11, lr}
-	MRS		r0, control
-	MRS		r1,   xpsr
-	PUSH   {r0, r1}
-	MEND
-
-	MACRO
-	RESUME_CONTEXT
-	POP {r0, r1}
-	MSR  control, r0,
-	MSR  xpsr, r1
-	PUSH {r4-r11, lr}
-	MEND
-
-	MACRO
-	RETURN_FROM_EXCEPTION
-	BX  lr
-	MEND
-
-	IMPORT  do_reset
-	IMPORT  do_NMI
-	IMPORT	do_mem_fault
-	IMPORT  do_bus_fault
-	IMPORT do_usage_fault
-	IMPORT do_svcall
-	IMPORT do_debug
-	IMPORT do_pendsv
-	IMPORT do_systick
+	.section  .start.init, "x"
+	.align   2
+	.func  reset_handler
+		b  do_reset
+	.endfunc
 
 
-	AREA  init_startup, CODE, READONLY	
-	ALIGN
-	ENTRY
-Reset_Handler	PROC
-				B do_reset
-				ENDP
+	.func  NMI_handler
+		SAVE_CONTEXT
+		bl  do_NMI
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
+    .endfunc
 
 
-NMI_Handler     PROC
-				SAVE_CONTEXT
-                BL  do_NMI
-				RESUME_CONTEXT
-				RETURN_FROM_EXCEPTION
-                ENDP
+	.func  memory_fault_handler
+		SAVE_CONTEXT
+		bl  do_mem_fault
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
+    .endfunc
 
 
-MeMFault_Handler    PROC
+	.func  bus_fault_handler
+		SAVE_CONTEXT
+		bl  do_bus_fault
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
+	.endfunc
+
+
+	.func  usage_fault_handler
 					SAVE_CONTEXT
-                    BL  do_mem_fault
+                    bl  do_usage_fault
 					RESUME_CONTEXT
 					RETURN_FROM_EXCEPTION
-                    ENDP
-
-
-BusFault_Handler    PROC
-					SAVE_CONTEXT
-                    BL  do_bus_fault
-					RESUME_CONTEXT
-					RETURN_FROM_EXCEPTION
-                    ENDP
-
-
-UsageFault_Handler  PROC
-					SAVE_CONTEXT
-                    BL  do_usage_fault
-					RESUME_CONTEXT
-					RETURN_FROM_EXCEPTION
-                    ENDP
-
-SVCall_Handler      PROC
-					SAVE_CONTEXT
-                    BL  do_svcall
-					RESUME_CONTEXT
-					RETURN_FROM_EXCEPTION
-                    ENDP
-
-
-Debug_Handler       PROC
-					SAVE_CONTEXT
-                    BL do_debug
-					RESUME_CONTEXT
-					RETURN_FROM_EXCEPTION
-                    ENDP
-
-
-PendSV_Handler      PROC
-					SAVE_CONTEXT
-                    BL  do_pendsv
-					RESUME_CONTEXT
-					RETURN_FROM_EXCEPTION
-                    ENDP
-
-
-SysTick_Handler     PROC
-					SAVE_CONTEXT
-                    BL do_systick
-					RESUME_CONTEXT
-					RETURN_FROM_EXCEPTION
-                    ENDP
+	.endfunc
 
 
 
 	
-	END
+	.end
 
 
 
