@@ -4,7 +4,6 @@
 
 #include  <stdint.h>
 
-#include  <uistd.h>
 
 #define   read_xpsr(name)    {       \
                     uint32_t val = 0;    \
@@ -18,8 +17,8 @@
 #define   update_xpsr(name,  value, mask)  {        \
                     uint32_t  val  =  0;            \
                     __asm__  volatile();        \
-                    val &= ~mask;           \
-                    val |=  ((mask) & (value));
+                    val &= ~(mask);           \
+                    val |=  ((mask) & (value));     \
                     __asm__  volatile();        \
                 }
 
