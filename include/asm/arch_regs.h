@@ -50,10 +50,18 @@
 #define  SET_FAULTMASK()     (__asm__ volatile("\tcpsid f":::))
 
 
+#define  SCS_BASE_ADDR       (0xE000E000u)
+#define  SYSTICK_REG_OFFSET  (0x10u)
+#define  NVIC_REG_OFFSET     (0x100u)
+#define  SCB_REG_OFFSET      (0xD00u)
+#define  MPU_REG_OFFSET      (0xD90u)
+#define  DEBUG_REG_OFFSET    (0xDF0u)
+#define  SW_REG_OFFSET       (0xF00u)
+#define  CACHE_REG_OFFSET    (0xF8Fu)
+#define  MID_REG_OFFSET      (0xFD0u)
 
 
-
-
+/**/
 
 
 
