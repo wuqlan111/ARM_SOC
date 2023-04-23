@@ -44,6 +44,15 @@
                 }
 
 
+#define  CLEAR_PRIMASK()     (__asm__ volatile("\tcpsie i":::))
+#define  SET_PRIMASK()       (__asm__ volatile("\tcpsid i":::))
+#define  CLEAR_FAULTMASK()   (__asm__ volatile("\tcpsie f":::))
+#define  SET_FAULTMASK()     (__asm__ volatile("\tcpsid f":::))
+
+
+
+
+
 
 
 
