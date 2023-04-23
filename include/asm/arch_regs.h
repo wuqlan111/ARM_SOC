@@ -5,22 +5,50 @@
 #include  <stdint.h>
 
 
+// arch special  registers
+#define  APSR_REG             "APSR"
+#define  IPSR_REG             "IPSR"
+#define  EPSR_REG             "EPSR"
+#define  IAPSR_REG            "IAPSR"
+#define  EAPSR_REG            "EAPSR"
+#define  XPSR_REG             "XPSR"
+#define  IEPSR_REG            "IEPSR"
+#define  MSP_REG              "MSP"
+#define  PSR_REG              "PSR"
+#define  PRIMASK_REG          "PRIMASK"
+#define  BASEPRI_REG          "BASEPRI"
+#define  BASEPRI_MAX_REG      "BASEPRI_MAX"
+#define  FAULTMASK_REG        "FAULTMASK"
+#define  CONTROL_REG          "CONTROL"
+
+
+//read  special  register
 #define   read_xpsr(name)    {       \
                     uint32_t val = 0;    \
-                    __asm__ volatile("");       \
+                    __asm__ volatile("\tmrs\t" (name)", %0":"=r"(val)::"=r"(val));       \
+                    val;                \
+                }
+//write  special  register
+#define   write_xpsr(name, value)   {       \
+                    uint32_t  val  = (value);       \
+                    __asm__ volatile("\tmsr %0, "(name)::"=r"(val):"=r"(val));  \
                 }
 
-#define   write_xpsr(name, value)   (__asm__ volatile(""))
-                    
-
-
+//update  special  register
 #define   update_xpsr(name,  value, mask)  {        \
                     uint32_t  val  =  0;            \
-                    __asm__  volatile();        \
+                    __asm__ volatile("\tmrs\t"(name)", %0":"=r"(val)::"=r"(val));       \
                     val &= ~(mask);           \
                     val |=  ((mask) & (value));     \
-                    __asm__  volatile();        \
+                    __asm__ volatile("\tmsr %0, "(name)::"=r"(val):"=r"(val));  \
                 }
+
+
+
+
+
+
+
 
 
 
