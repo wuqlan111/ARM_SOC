@@ -170,8 +170,19 @@
 
 
 
+#define  REG32_READ(addr)       (*((volatile uint32_t *)(addr)))
+#define  REG32_WRITE(addr, val)      (*((volatile uint32_t *)(addr)) = (val))
+#define  REG32_UPDATE(addr, val,  mask)  {          \
+                                uint32_t  tmp  =  REG32_READ((addr));   \
+                                tmp   &=  (~(mask));              \
+                                tmp   |=  ((val) & (mask));       \
+                                REG32_WRITE(addr,  tmp);          \
+                                }
+
+
 
 
 #endif
+
 
 
