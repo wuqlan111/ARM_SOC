@@ -57,7 +57,7 @@
 #define  MPU_REG_OFFSET      (0xD90u)
 #define  DEBUG_REG_OFFSET    (0xDF0u)
 #define  SW_REG_OFFSET       (0xF00u)
-#define  CACHE_REG_OFFSET    (0xF8Fu)
+#define  CACHE_REG_OFFSET    (0xF50u)
 #define  MID_REG_OFFSET      (0xFD0u)
 
 
@@ -109,42 +109,64 @@
 #define  SCB_MMFAR_REG_ADDR                 (SCB_BASE_ADDR + 0x34)
 #define  SCB_BFAR_REG_ADDR                  (SCB_BASE_ADDR + 0x38)
 #define  SCB_AFSR_REG_ADDR                  (SCB_BASE_ADDR + 0x3C)
-#define  SCB_ID_PFR0_REG_ADDR               (SCB_BASE_ADDR + 0x40)
-#define  SCB_ID_PFR1_REG_ADDR               (SCB_BASE_ADDR + 0x44)
-#define  SCB_ID_DFR0_REG_ADDR               (SCB_BASE_ADDR + 0x48)
-#define  SCB_ID_AFR0_REG_ADDR               (SCB_BASE_ADDR + 0x4C)
-#define  SCB_ID_MMFR0_REG_ADDR              (SCB_BASE_ADDR + 0x50)
-#define  SCB_ID_MMFR1_REG_ADDR              (SCB_BASE_ADDR + 0x54)
-#define  SCB_ID_MMFR2_REG_ADDR              (SCB_BASE_ADDR + 0x58)
-#define  SCB_ID_MMFR3_REG_ADDR              (SCB_BASE_ADDR + 0x5C)
-#define  SCB_ID_ISAR0_REG_ADDR              (SCB_BASE_ADDR + 0x60)
-#define  SCB_ID_ISAR1_REG_ADDR              (SCB_BASE_ADDR + 0x64)
-#define  SCB_ID_ISAR2_REG_ADDR              (SCB_BASE_ADDR + 0x68)
-#define  SCB_ID_ISAR3_REG_ADDR              (SCB_BASE_ADDR + 0x6C)
-#define  SCB_ID_ISAR4_REG_ADDR              (SCB_BASE_ADDR + 0x70)
-#define  SCB_ID_ISAR5_REG_ADDR              (SCB_BASE_ADDR + 0x74)
-#define  SCB_ID_CLIDR_REG_ADDR              (SCB_BASE_ADDR + 0x78)
-#define  SCB_ID_CTR_REG_ADDR                (SCB_BASE_ADDR + 0x7C)
-#define  SCB_ID_CCSIDR_REG_ADDR             (SCB_BASE_ADDR + 0x80)
-#define  SCB_ID_CSSELR_REG_ADDR             (SCB_BASE_ADDR + 0x84)
+#define  ID_PFR0_REG_ADDR                   (SCB_BASE_ADDR + 0x40)
+#define  ID_PFR1_REG_ADDR                   (SCB_BASE_ADDR + 0x44)
+#define  ID_DFR0_REG_ADDR                   (SCB_BASE_ADDR + 0x48)
+#define  ID_AFR0_REG_ADDR                   (SCB_BASE_ADDR + 0x4C)
+#define  ID_MMFR0_REG_ADDR                  (SCB_BASE_ADDR + 0x50)
+#define  ID_MMFR1_REG_ADDR                  (SCB_BASE_ADDR + 0x54)
+#define  ID_MMFR2_REG_ADDR                  (SCB_BASE_ADDR + 0x58)
+#define  ID_MMFR3_REG_ADDR                  (SCB_BASE_ADDR + 0x5C)
+#define  ID_ISAR0_REG_ADDR                  (SCB_BASE_ADDR + 0x60)
+#define  ID_ISAR1_REG_ADDR                  (SCB_BASE_ADDR + 0x64)
+#define  ID_ISAR2_REG_ADDR                  (SCB_BASE_ADDR + 0x68)
+#define  ID_ISAR3_REG_ADDR                  (SCB_BASE_ADDR + 0x6C)
+#define  ID_ISAR4_REG_ADDR                  (SCB_BASE_ADDR + 0x70)
+#define  ID_ISAR5_REG_ADDR                  (SCB_BASE_ADDR + 0x74)
+#define  ID_CLIDR_REG_ADDR                  (SCB_BASE_ADDR + 0x78)
+#define  ID_CTR_REG_ADDR                    (SCB_BASE_ADDR + 0x7C)
+#define  ID_CCSIDR_REG_ADDR                 (SCB_BASE_ADDR + 0x80)
+#define  ID_CSSELR_REG_ADDR                 (SCB_BASE_ADDR + 0x84)
 #define  SCB_CPACR_REG_ADDR                 (SCB_BASE_ADDR + 0x88)
 
 
 
+//mmu registers
+#define  MMU_BASE_ADDR                     (SCS_BASE_ADDR + MMU_BASE_ADDR)
+#define  MMU_TYPE_REG_ADDR                 (MMU_BASE_ADDR)
+#define  MMU_CTRL_REG_ADDR                 (MMU_BASE_ADDR + 0x4)
+#define  MMU_RNR_REG_ADDR                  (MMU_BASE_ADDR + 0x8)
+#define  MMU_RBAR_REG_ADDR                 (MMU_BASE_ADDR + 0xC)
+#define  MMU_RASR_REG_ADDR                 (MMU_BASE_ADDR + 0x10)
+#define  MMU_RBAR_A_REG_ADDR(n)            (MMU_BASE_ADDR + 0x14 + 0x8 * (n))
+#define  MMU_RASR_A_REG_ADDR(n)            (MMU_BASE_ADDR + 0x18 + 0x8 * (n))
 
 
 
+#define  SCS_STIR_REG_ADDR                 (SCS_BASE_ADDR  + SW_REG_OFFSET)
+
+
+//fp registers
+#define  SCS_FP_BASE_ADDR                  (SCS_STIR_REG_ADDR  +  0x34)
+#define  SCS_FPCCR_REG_ADDR                (SCS_FP_BASE_ADDR)
+#define  SCS_FPCAR_REG_ADDR                (SCS_FP_BASE_ADDR  +  0x4)
+#define  SCS_FPDSCR_REG_ADDR               (SCS_FP_BASE_ADDR  +  0x8)
+#define  SCS_FPMVFR_REG_ADDR(n)            (SCS_FP_BASE_ADDR  +  0xC + (n) * 4)
 
 
 
-
-
-
-
-
-
-
-
+//cache registers
+#define  CACHE_BASE_ADDR                    (SCS_BASE_ADDR  +  CACHE_REG_OFFSET)
+#define  CAHCE_ICIALLU_REG_ADDR             (CACHE_BASE_ADDR)
+#define  CAHCE_ICIMVAU_REG_ADDR             (CACHE_BASE_ADDR  +  0x8)
+#define  CAHCE_DCIMVAC_REG_ADDR             (CACHE_BASE_ADDR  +  0xC)
+#define  CAHCE_DCISW_REG_ADDR               (CACHE_BASE_ADDR  +  0x10)
+#define  CAHCE_DCCMVAU_REG_ADDR             (CACHE_BASE_ADDR  +  0x14)
+#define  CAHCE_DCCMVAC_REG_ADDR             (CACHE_BASE_ADDR  +  0x18)
+#define  CAHCE_DCCSW_REG_ADDR               (CACHE_BASE_ADDR  +  0x1C)
+#define  CAHCE_DCCIMVAC_REG_ADDR            (CACHE_BASE_ADDR  +  0x20)
+#define  CAHCE_DCCISW_REG_ADDR              (CACHE_BASE_ADDR  +  0x24)
+#define  CAHCE_BPIALL_REG_ADDR              (CACHE_BASE_ADDR  +  0x28)
 
 
 
