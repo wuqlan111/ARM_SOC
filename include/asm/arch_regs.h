@@ -1,6 +1,6 @@
 
-#ifndef  ARMv7_ARCH_REGS
-#define  ARMv7_ARCH_REGS
+#ifndef  ASM_ARCH_REGS
+#define  ASM_ARCH_REGS
 
 #include  <stdint.h>
 

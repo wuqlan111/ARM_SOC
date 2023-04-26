@@ -1,6 +1,6 @@
 
-#ifndef   ARCH_ATOMIC_H
-#define   ARCH_ATOMIC_H
+#ifndef   ASM_ARCH_ATOMIC_H
+#define   ASM_ARCH_ATOMIC_H
 
 
 
