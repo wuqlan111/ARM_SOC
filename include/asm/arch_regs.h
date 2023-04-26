@@ -25,7 +25,7 @@
 //read  special  register
 #define   read_xpsr(name)    {       \
                     uint32_t val = 0;    \
-                    __asm__ volatile("\tmrs\t" (name)", %0":"=r"(val)::"=r"(val));       \
+                    __asm__ volatile("\tmrs\t" name ", %0":"=r"(val)::"=r"(val));       \
                     val;                \
                 }
 //write  special  register
