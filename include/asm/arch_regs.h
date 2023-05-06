@@ -132,14 +132,14 @@
 
 
 //mmu registers
-#define  MMU_BASE_ADDR                     (SCS_BASE_ADDR + MMU_BASE_ADDR)
-#define  MMU_TYPE_REG_ADDR                 (MMU_BASE_ADDR)
-#define  MMU_CTRL_REG_ADDR                 (MMU_BASE_ADDR + 0x4)
-#define  MMU_RNR_REG_ADDR                  (MMU_BASE_ADDR + 0x8)
-#define  MMU_RBAR_REG_ADDR                 (MMU_BASE_ADDR + 0xC)
-#define  MMU_RASR_REG_ADDR                 (MMU_BASE_ADDR + 0x10)
-#define  MMU_RBAR_A_REG_ADDR(n)            (MMU_BASE_ADDR + 0x14 + 0x8 * (n))
-#define  MMU_RASR_A_REG_ADDR(n)            (MMU_BASE_ADDR + 0x18 + 0x8 * (n))
+#define  MPU_BASE_ADDR                     (SCS_BASE_ADDR + MPU_REG_OFFSET)
+#define  MPU_TYPE_REG_ADDR                 (MPU_BASE_ADDR)
+#define  MPU_CTRL_REG_ADDR                 (MPU_BASE_ADDR + 0x4)
+#define  MPU_RNR_REG_ADDR                  (MPU_BASE_ADDR + 0x8)
+#define  MPU_RBAR_REG_ADDR                 (MPU_BASE_ADDR + 0xC)
+#define  MPU_RASR_REG_ADDR                 (MPU_BASE_ADDR + 0x10)
+#define  MPU_RBAR_A_REG_ADDR(n)            (MPU_BASE_ADDR + 0x14 + 0x8 * (n))
+#define  MPU_RASR_A_REG_ADDR(n)            (MPU_BASE_ADDR + 0x18 + 0x8 * (n))
 
 
 
