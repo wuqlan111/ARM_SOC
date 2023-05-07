@@ -3,7 +3,7 @@
 #define  ASM_ARCH_REGS
 
 #include  <stdint.h>
-
+#include  "gcc_type.h"
 
 // arch special  registers
 #define  APSR_REG             "APSR"
