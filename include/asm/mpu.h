@@ -39,9 +39,6 @@ static inline void enable_or_disable_mpu(uint32_t enable)
 
 
 
-
-
-
 #endif
 
 
