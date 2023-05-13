@@ -23,19 +23,19 @@
 
 
 //read  special  register
-#define   read_xpsr(name)    {       \
+#define   READ_XPSR(name)    {       \
                     uint32_t val = 0;    \
                     __asm__ volatile("\tmrs\t" name ", %0":"=r"(val)::"=r"(val));       \
                     val;                \
                 }
 //write  special  register
-#define   write_xpsr(name, value)   {       \
+#define   WRITE_XPSR(name, value)   {       \
                     uint32_t  val  = (value);       \
                     __asm__ volatile("\tmsr %0, "(name)::"=r"(val):"=r"(val));  \
                 }
 
 //update  special  register
-#define   update_xpsr(name,  value, mask)  {        \
+#define   UPDATE_XPSR(name,  value, mask)  {        \
                     uint32_t  val  =  0;            \
                     __asm__ volatile("\tmrs\t"(name)", %0":"=r"(val)::"=r"(val));       \
                     val &= ~(mask);           \

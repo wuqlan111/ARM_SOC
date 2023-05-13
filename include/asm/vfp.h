@@ -20,11 +20,19 @@
 #define FPCAR_CONTEXT_ADDR_FLAG      (0xFFFFFFF8U)
 
 
+static inline uint32_t is_fp_extension_active(void)
+{
+    uint32_t  ret = READ_XPSR(CONTROL_REG) & 0x4? 1: 0;
+    return   ret;
+}
 
 
+static  inline  void enable_or_disable_fp(uint32_t enable)
+{
 
 
-
+    
+}
 
 
 
