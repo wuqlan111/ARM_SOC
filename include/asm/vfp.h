@@ -4,7 +4,7 @@
 
 #include  <stdint.h>
 #include  "arch_regs.h"
-
+#include  "arch_coprocessor .h"
 
 #define FPCCR_ASPEN_FALG         (1<<31U)
 #define FPCCR_LAZY_SAVE_FALG     (1<<30U)
@@ -23,14 +23,19 @@
 static inline uint32_t is_fp_extension_active(void)
 {
     uint32_t  ret = READ_XPSR(CONTROL_REG) & 0x4? 1: 0;
-    return   ret;
+    return ret;
 }
 
 
 static  inline  void enable_or_disable_fp(uint32_t enable)
 {
-
-
+    if (enable) {
+        ENABLE_CP(10);
+        ENABLE_CP(11);
+    } else {
+        DISABLE_CP(10);
+        DISABLE_CP(11);        
+    }
     
 }
 
