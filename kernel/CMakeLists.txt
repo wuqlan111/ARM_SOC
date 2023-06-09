@@ -7,4 +7,4 @@ include_directories(
 )
 
 
-aux_source_directory(.  ${ALL_SRCS})
+aux_source_directory(.  ALL_SRCS)
