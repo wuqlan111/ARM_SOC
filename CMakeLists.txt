@@ -23,8 +23,7 @@ set(CMAKE_CXX_COMPILER_FORCED   TURE)
 
 
 
-set(TARGET_NAME    armv7)
-set(EXECUTABLE_ELF     ${TARG_NAME}.elf)
+set(EXECUTABLE_ELF     ${PROJECT_NAME}.elf)
 
 set(CMAKE_C_FLAGS "-march=armv7-m  -g" CACHE  INTENAL  "c compiler flags" )
 set(CMAKE_C_FLAGS_DEBUG   "-O0"   CACHE  INTENAL "debug flags")
