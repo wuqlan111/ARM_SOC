@@ -1,6 +1,6 @@
 
 set(CMAKE_SYSTEM_NAME   Generic)
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION  2.8)
 
 # enable asm files
 enable_language(ASM)
