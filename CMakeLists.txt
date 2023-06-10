@@ -1,25 +1,22 @@
 
-
 set(CMAKE_SYSTEM_NAME   Generic)
 cmake_minimum_required(VERSION 3.22)
 
+# enable asm files
 enable_language(ASM)
-
-# set project name
-set(PROJECT_NAME    "armv7")
-
-
 
 # set toolchain
 set(CMAKE_C_COMPILER   arm-none-eabi-gcc)
-set(CMAKE_ASM_COMPILER  arm-none-eabi-gcc)
 set(CMAKE_OBJCOPY       arm-none-eabi-objcopy)
 set(CMAAKE_OBJDUMP      arm-none-eabi-objdump)
 set(CMAAKE_AR      arm-none-eabi-ar)
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE   STATIC_LIBRARY)
 
-project(sdghfhsgd LANGUAGES  C ASM)
+
+# set project name
+set(PROJECT_NAME    armv7)
+project(${PROJECT_NAME} LANGUAGES  C ASM)
 
 set(TARGET_OUT_DIR   ${CMAKE_SOURCE_DIR}/target)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${TARGET_OUT_DIR}/bin)
@@ -31,12 +28,10 @@ set(CMAKE_CXX_COMPILER_FORCED   TURE)
 
 
 add_compile_options(-mcpu=cortex-m3 -mthumb)
-add_compile_options(-ffunction-sections -fdata-section -fno-common)
+add_compile_options(-ffunction-sections -fdata-sections -fno-common)
 
 set(EXECUTABLE_ELF     ${PROJECT_NAME}.elf)
 
-set(CMAKE_C_FLAGS "-march=armv7-m  -g" CACHE  INTENAL  "c compiler flags" )
-set(CMAKE_C_FLAGS_DEBUG   "-O0"   CACHE  INTENAL "debug flags")
 
 aux_source_directory(./boot   BOOT_SRCS)
 aux_source_directory(./kernel  KERNEL_SRCS)
