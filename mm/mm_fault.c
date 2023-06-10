@@ -60,9 +60,9 @@ void  do_mem_fault(context_no_fp_regs_t regs)
     uint32_t  mmfalut_info = get_memory_fault_info();
     uint32_t  mmfault_addr = 0;
 
-    if (mmfalut_info &  MMFSR_MMARVALID_MASK)
-        mmfault_addr  =  get_memory_fault_addr();
-
+    if (mmfalut_info &  MMFSR_MMARVALID_MASK) {
+        mmfault_addr  =  get_memory_fault_addr();        
+    }
     
     if ( (mmfalut_info & MMFSR_MSTKERR_MASK) || (mmfalut_info & MMFSR_MUNSTKERR_MASK) ) {
         do_with_exception_stack_fault();
@@ -72,7 +72,7 @@ void  do_mem_fault(context_no_fp_regs_t regs)
         do_with_instruction_fetch_fault();
     } else if (mmfalut_info & MMFSR_MLSPERR_MASK) {
 
-    } else ;
+    }
 
     enable_irq();
 

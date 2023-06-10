@@ -11,8 +11,6 @@ set(CMAKE_OBJCOPY       arm-none-eabi-objcopy)
 set(CMAAKE_OBJDUMP      arm-none-eabi-objdump)
 set(CMAAKE_AR      arm-none-eabi-ar)
 
-set(CMAKE_TRY_COMPILE_TARGET_TYPE   STATIC_LIBRARY)
-
 
 # set project name
 set(PROJECT_NAME    armv7)
