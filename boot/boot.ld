@@ -48,7 +48,8 @@ SECTIONS
 {
 	.text :
 	{
-		KEEP(*(.isr_vector))
+		KEEP(*(.exception.table))
+		*(*.init)
 		*(.text*)
 
 		KEEP(*(.init))

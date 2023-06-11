@@ -1,6 +1,7 @@
 #include  <stdint.h>
 #include  <string.h>
 #include  <stdio.h>
+#include  <stdarg.h>
 
 #include "asm/arch_printk.h"
 
@@ -27,7 +28,7 @@ int32_t  early_printk(const char * fmt,  ...)
     if ( (len > 128 ) || (tail + len > EARLY_LOG_SIZE -1))
         return -1;
 
-    memcpy(early_log_buffer[tail], buf, len);
+    memcpy(&early_log_buffer[tail], buf, len);
     early_log_buffer[tail+len - 1] = '\0';
     tail+=len;
 
