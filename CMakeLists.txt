@@ -27,6 +27,7 @@ set(CMAKE_C_COMPILER_FORCED   TURE)
 set(CMAKE_C_FLAGS  "-mcpu=cortex-m3 -mthumb -march=armv7-m -g -Wall")
 set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -ffunction-sections -fdata-sections -fno-common")
 set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -O0 --specs=nosys.specs")
+SET(CMAKE_ASM_FLAGS "-mcpu=cortex-m3 -mthumb -march=armv7-m -g")
 
 # set link option
 set(LINK_SCRIPT   ${CMAKE_CURRENT_SOURCE_DIR}/boot/boot.ld)
@@ -48,6 +49,9 @@ aux_source_directory(./lib  LIB_SRCS)
 aux_source_directory(./mm  MM_SRCS)
 aux_source_directory(./test  TEST_SRCS)
 
+# add asm files
+set(ASM_SRCS   ./boot/init.S)
+
 
 # output file
 set(EXECUTABLE_ELF     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.elf)
@@ -55,7 +59,7 @@ set(HEX_FILE     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.hex)
 set(BIN_FILE     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.bin)
 
 add_executable(${PROJECT_NAME}.elf  ${BOOT_SRCS} ${KERNEL_SRCS} 
-                    ${LIB_SRCS} ${MM_SRCS}  ${TEST_SRCS})
+                    ${LIB_SRCS} ${MM_SRCS}  ${TEST_SRCS}  ${ASM_SRCS})
 
 
 add_custom_command(
