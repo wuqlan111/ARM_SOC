@@ -33,11 +33,6 @@ set(LINK_SCRIPT   ${CMAKE_CURRENT_SOURCE_DIR}/boot/boot.ld)
 set(CMAKE_EXE_LINKER_FLAGS  "--specs=nano.specs --specs=nosys.specs -T ${LINK_SCRIPT}")
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-gc-sections")
 set(CMAKE_EXE_LINKER_FLAGS  "-Wl,-Map=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.map")
-# -gc-sections  
-#                                 
-# add_link_options(-Wl,-gc-sections -Wl,
-#                     -Map=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.map)
-# add_link_options(-mcpu=cortex-m3  -mthumb  -T {LINK_SCRIPT})
 
 
 # add include dir
