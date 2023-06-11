@@ -18,7 +18,7 @@ set(PROJECT_NAME    armv7)
 project(${PROJECT_NAME} LANGUAGES  C ASM)
 
 # set output
-set(TARGET_OUT_DIR   ${CMAKE_SOURCE_DIR}/target)
+set(TARGET_OUT_DIR   ${CMAKE_CURRENT_SOURCE_DIR}/target)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${TARGET_OUT_DIR}/bin)
 
 
@@ -50,18 +50,18 @@ aux_source_directory(./test  TEST_SRCS)
 
 
 # output file
-set(EXECUTABLE_ELF     ${PROJECT_NAME}.elf)
-set(HEX_FILE     ${PROJECT_NAME}.hex)
-set(BIN_FILE     ${PROJECT_NAME}.bin)
+set(EXECUTABLE_ELF     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.elf)
+set(HEX_FILE     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.hex)
+set(BIN_FILE     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.bin)
 
-add_executable(${EXECUTABLE_ELF}  ${BOOT_SRCS} ${KERNEL_SRCS} 
+add_executable(${PROJECT_NAME}.elf  ${BOOT_SRCS} ${KERNEL_SRCS} 
                     ${LIB_SRCS} ${MM_SRCS}  ${TEST_SRCS})
 
 
 add_custom_command(
-    TARGET   ${EXECUTABLE_ELF}   POST_BUILD
-    COMMAND  ${CMAKE_OBJCOPY}  -O   ihex  ${PROJECT_NAME}.elf  ${HEX_FILE}
-    COMMAND  ${CMAKE_OBJCOPY}  -O   binary  ${PROJECT_NAME}.elf  ${BIN_FILE}
+    TARGET   "${PROJECT_NAME}.elf"   POST_BUILD
+    COMMAND  ${CMAKE_OBJCOPY}  -O   ihex   ${EXECUTABLE_ELF}   ${HEX_FILE}
+    COMMAND  ${CMAKE_OBJCOPY}  -O   binary  ${EXECUTABLE_ELF}  ${BIN_FILE}
 )
 
 
