@@ -46,6 +46,7 @@ aux_source_directory(./boot   BOOT_SRCS)
 aux_source_directory(./kernel  KERNEL_SRCS)
 aux_source_directory(./lib  LIB_SRCS)
 aux_source_directory(./mm  MM_SRCS)
+aux_source_directory(./test  TEST_SRCS)
 
 
 # output file
@@ -54,7 +55,7 @@ set(HEX_FILE     ${PROJECT_NAME}.hex)
 set(BIN_FILE     ${PROJECT_NAME}.bin)
 
 add_executable(${EXECUTABLE_ELF}  ${BOOT_SRCS} ${KERNEL_SRCS} 
-                    ${LIB_SRCS} ${MM_SRCS})
+                    ${LIB_SRCS} ${MM_SRCS}  ${TEST_SRCS})
 
 
 add_custom_command(
