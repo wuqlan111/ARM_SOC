@@ -24,14 +24,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${TARGET_OUT_DIR}/bin)
 
 # set compile flag
 set(CMAKE_C_COMPILER_FORCED   TURE)
-set(CMAKE_C_FLAGS  "-mcpu=cortex-m3 -mthumb -g -Wall")
+set(CMAKE_C_FLAGS  "-mcpu=cortex-m3 -mthumb -march=armv7-m -g -Wall")
 set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -ffunction-sections -fdata-sections -fno-common")
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -O0 ")
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -O0 --specs=nosys.specs")
 
 # set link option
 set(LINK_SCRIPT   ${CMAKE_CURRENT_SOURCE_DIR}/boot/boot.ld)
-set(CMAKE_EXE_LINKER_FLAGS  "--specs=nano.specs --specs=nosys.specs -T ${LINK_SCRIPT}")
-set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-gc-sections")
+set(CMAKE_EXE_LINKER_FLAGS  "--specs=nosys.specs -T ${LINK_SCRIPT}")
+set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-gc-sections -Wl,--cref")
 set(CMAKE_EXE_LINKER_FLAGS  "-Wl,-Map=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.map")
 
 
