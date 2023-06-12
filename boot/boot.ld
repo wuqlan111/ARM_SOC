@@ -49,7 +49,6 @@ SECTIONS
 	.text :
 	{
 		KEEP(*(.exception.table))
-		*(*.init)
 		*(.text*)
 
 		KEEP(*(.init))
