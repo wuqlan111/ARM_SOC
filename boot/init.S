@@ -1,44 +1,27 @@
 	
+	.syntax	unified
+	.arch	armv7-m
+
 	.section  .main.stack, "w" 
 main_sp:  .space  0x1000
 
 	.section  .process.stack, "w" 
 process_sp:  .space  0x1000
 
-	section  .exception.table, "r"
-expr_vector_table:  .word _main_sp
-	.word reset_handler
-	.word NMI_handler
-	.word hard_fault_handler
-	.word memory_fault_handler
-	.word bus_fault_handler
-	.word usage_fault_handler
-	.word 0
-	.word 0
-	.word 0
-	.word 0
-	.word svcall_handler
-	.word debug_handler
-	.word 0
-	.word pendsv_handler
-	.word systick_handler
-extern_vector:	.space  0x1000
-	.global  main_sp
-	.global  process_sp
-	.global  expr_vector_table
+
+
+
 
 	.macro  SAVE_CONTEXT
-			push   {r4-r11, lr}
-			mrs		r0, control
-			mrs		r1,   xpsr
-			push   {r0, r1}
+			push   {r0-r7}
+			mrs	   r0, control
+			push   {r0}
 	.endm
 
 	.macro  RESUME_CONTEXT
-			pop {r0, r1}
-			msr  control, r0,
-			msr  xpsr, r1
-			push {r4-r11, lr}
+			pop  {r0}
+			msr  control, r0
+			pop  {r0-r7}
 	.endm
 
 	.macro  RETURN_FROM_EXCEPTION
@@ -54,18 +37,6 @@ extern_vector:	.space  0x1000
 	.extern  do_debug
 	.extern  do_pendsv
 	.extern  do_systick
-
-
-@ #define BUILD_EXCEPTION(name, fn)	\
-@ 	.func  (name)	\
-@ 		SAVE_CONTEXT;		\
-@ 		bl  (fn);	\
-@ 		RESUME_CONTEXT;		\
-@ 		RETURN_FROM_EXCEPTION;		\
-@ 	.endfunc
-
-
-
 
 	.section  .start.init, "x"
 	.align   2
@@ -104,6 +75,41 @@ extern_vector:	.space  0x1000
 					RESUME_CONTEXT
 					RETURN_FROM_EXCEPTION
 	.endfunc
+
+	.section  .exception.table, "o"
+expr_vector_table:  .word main_sp
+	.word reset_handler
+	.word NMI_handler
+	.word hard_fault_handler
+	.word memory_fault_handler
+	.word bus_fault_handler
+	.word usage_fault_handler
+	.word 0
+	.word 0
+	.word 0
+	.word 0
+	.word svcall_handler
+	.word debug_handler
+	.word 0
+	.word pendsv_handler
+	.word systick_handler
+extern_vector:	.space  0x1000
+	.global  main_sp
+	.global  process_sp
+	.global  expr_vector_table
+
+
+
+
+@ #define BUILD_EXCEPTION(name, fn)	\
+@ 	.func  (name)	\
+@ 		SAVE_CONTEXT;		\
+@ 		bl  (fn);	\
+@ 		RESUME_CONTEXT;		\
+@ 		RETURN_FROM_EXCEPTION;		\
+@ 	.endfunc
+
+
 
 
 
