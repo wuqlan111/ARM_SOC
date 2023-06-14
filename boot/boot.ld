@@ -8,47 +8,19 @@
  */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x0, LENGTH = 0x20000 /* 128K */
-  RAM (rwx) : ORIGIN = 0x10000000, LENGTH = 0x2000 /* 8K */
+  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 0x100000 /* 1MB */
+  SYSTEM_RAM (rwx) : ORIGIN = 0x1FFF0000, LENGTH = 0x7800 /* 30K */
+  EMBEDDED_SRAM1(rwx): ORIGIN = 0x20000000, LENGTH = 0x1C000 /* 112K */
 }
 
-/* Linker script to place sections and symbol values. Should be used together
- * with other linker script that defines memory regions FLASH and RAM.
- * It references following symbols, which must be defined in code:
- *   Reset_Handler : Entry of reset handler
- * 
- * It defines following symbols, which code can use without definition:
- *   __exidx_start
- *   __exidx_end
- *   __copy_table_start__
- *   __copy_table_end__
- *   __zero_table_start__
- *   __zero_table_end__
- *   __etext
- *   __data_start__
- *   __preinit_array_start
- *   __preinit_array_end
- *   __init_array_start
- *   __init_array_end
- *   __fini_array_start
- *   __fini_array_end
- *   __data_end__
- *   __bss_start__
- *   __bss_end__
- *   __end__
- *   end
- *   __HeapLimit
- *   __StackLimit
- *   __StackTop
- *   __stack
- */
+
 ENTRY(reset_handler)
 
 SECTIONS
 {
 	.text :
 	{
-		KEEP(*(.exception.table))
+		KEEP(.exception.table)
 		*(.text*)
 
 		KEEP(*(.init))

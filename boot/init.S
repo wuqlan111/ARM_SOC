@@ -71,6 +71,7 @@ extern_vector:	.space  0x1000
 
 	.section  .start.init, "x"
 	.align   2
+	.global  reset_handler
 reset_handler:
 		b  do_reset
 
