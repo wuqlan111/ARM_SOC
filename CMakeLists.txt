@@ -32,7 +32,7 @@ SET(CMAKE_ASM_FLAGS "-mcpu=cortex-m3 -mthumb -march=armv7-m -g  -x assembler")
 # set link option
 set(LINK_SCRIPT   ${CMAKE_CURRENT_SOURCE_DIR}/boot/boot.ld)
 set(CMAKE_EXE_LINKER_FLAGS  "--specs=nosys.specs -T ${LINK_SCRIPT}")
-set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}  -Wl,--cref")
+set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}  -Wl,--cref  -Wl,--gc-sections")
 set(CMAKE_EXE_LINKER_FLAGS  "-Wl,-Map=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.map")
 
 

@@ -21,6 +21,7 @@ SECTIONS
 	.text :
 	{
 		KEEP(.exception.table)
+		KEEP(.start.init)
 		*(.text*)
 
 		KEEP(*(.init))
@@ -128,7 +129,7 @@ SECTIONS
 		/* All data end */
 		__data_end__ = .;
 
-	} > RAM
+	} > EMBEDDED_SRAM1RAM
 
 	.bss :
 	{
@@ -138,7 +139,7 @@ SECTIONS
 		*(COMMON)
 		. = ALIGN(4);
 		__bss_end__ = .;
-	} > RAM
+	} > EMBEDDED_SRAM1RAM
 	
 	.heap (COPY):
 	{
@@ -146,7 +147,7 @@ SECTIONS
 		PROVIDE(end = .);
 		*(.heap*)
 		__HeapLimit = .;
-	} > RAM
+	} > EMBEDDED_SRAM1RAM
 
 	/* .stack_dummy section doesn't contains any symbols. It is only
 	 * used for linker to calculate size of stack sections, and assign
@@ -154,7 +155,7 @@ SECTIONS
 	.stack_dummy (COPY):
 	{
 		*(.stack*)
-	} > RAM
+	} > EMBEDDED_SRAM1RAM
 
 	/* Set stack top to end of RAM, and stack limit move down by
 	 * size of stack_dummy section */

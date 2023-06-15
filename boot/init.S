@@ -2,11 +2,36 @@
 	.syntax	unified
 	.arch	armv7-m
 
-	.section  .main.stack, "w" 
-main_sp:  .space  0x1000
+	.section .main.stack
+	.align	3
+#ifdef _MAIN_STACK_SIZE
+	.equ	MAIN_STACK_SIZE, _MAIN_STACK_SIZE
+#else
+	.equ	MAIN_STACK_SIZE, 0x1000
+#endif
+	.globl	MAIN_STACK_TOP
+	.globl	MAIN_STACK_LIMIT
+MAIN_STACK_LIMIT:
+	.space	MAIN_STACK_SIZE
+	.size	MAIN_STACK_LIMIT, . - MAIN_STACK_LIMIT
+MAIN_STACK_TOP:
+	.size	MAIN_STACK_TOP, . - MAIN_STACK_TOP
 
-	.section  .process.stack, "w" 
-process_sp:  .space  0x1000
+	.section .process.stack
+	.align	3
+#ifdef _PROCESS_STACK_SIZE
+	.equ	PROCESS_STACK_SIZE, _PROCESS_STACK_SIZE
+#else
+	.equ	PROCESS_STACK_SIZE, 0x1000
+#endif
+	.globl	PROCESS_STACK_TOP
+	.globl	PROCESS_STACK_LIMIT
+PROCESS_STACK_LIMIT:
+	.space	PROCESS_STACK_SIZE
+	.size	PROCESS_STACK_LIMIT, . - PROCESS_STACK_LIMIT
+PROCESS_STACK_TOP:
+	.size	PROCESS_STACK_TOP, . - PROCESS_STACK_TOP
+
 
 	.macro  SAVE_CONTEXT
 			push   {r0-r7}
@@ -25,10 +50,11 @@ process_sp:  .space  0x1000
 	.endm
 
 
-	.section  .exception.table, "o"
+	.section  .exception.table
+	.align  2	
 	.global  expr_vector_table
 expr_vector_table:
-	.word main_sp
+	.word MAIN_STACK_TOP
 	.word reset_handler
 	.word NMI_handler
 	.word hard_fault_handler
@@ -45,16 +71,7 @@ expr_vector_table:
 	.word pendsv_handler
 	.word systick_handler
 extern_vector:	.space  0x1000
-	.global  main_sp
-	.global  process_sp
-
-
-
-
-
-
-
-
+	.size	expr_vector_table, . - expr_vector_table
 
 
 
@@ -69,6 +86,9 @@ extern_vector:	.space  0x1000
 	.extern  do_pendsv
 	.extern  do_systick
 
+
+	.text
+	.thumb
 	.section  .start.init, "x"
 	.align   2
 	.global  reset_handler
