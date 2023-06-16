@@ -6,10 +6,12 @@ cmake_minimum_required(VERSION  3.15)
 enable_language(ASM)
 
 # set toolchain
-set(CMAKE_C_COMPILER   arm-none-eabi-gcc)
+set(CMAKE_C_COMPILER     arm-none-eabi-gcc)
+set(CMAKE_ASM_COMPILER   arm-none-eabi-as)
 set(CMAKE_OBJCOPY       arm-none-eabi-objcopy)
 set(CMAAKE_OBJDUMP      arm-none-eabi-objdump)
 set(CMAAKE_AR      arm-none-eabi-ar)
+set(SIZE   arm-none-eabi-size)
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE  STATIC_LIBRARY)
 
@@ -24,10 +26,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${TARGET_OUT_DIR}/bin)
 
 # set compile flag
 set(CMAKE_C_COMPILER_FORCED   TURE)
-set(CMAKE_C_FLAGS  "-mcpu=cortex-m3 -mthumb -march=armv7-m -g -Wall")
+set(CMAKE_C_FLAGS  "-mcpu=cortex-m3 -mthumb -march=armv7-m -g -Wall -fno-builtin -fno-strict-aliasing")
 set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -ffunction-sections -fdata-sections -fno-common")
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -O0 --specs=nosys.specs")
-SET(CMAKE_ASM_FLAGS "-mcpu=cortex-m3 -mthumb -march=armv7-m -g  -x assembler")
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -O0 --specs=nosys.specs -ggdb")
+set(CMAKE_ASM_FLAGS "-mcpu=cortex-m3 -mthumb -march=armv7-m -g  -x assembler")
+set(CMAKE_BUILD_TYPE "Debug")
+set_property(SOURCE boot/init.S  PROPERTY LANGUAGE C)
 
 # set link option
 set(LINK_SCRIPT   ${CMAKE_CURRENT_SOURCE_DIR}/boot/boot.ld)

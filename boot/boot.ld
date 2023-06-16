@@ -20,7 +20,7 @@ SECTIONS
 {
 	.text :
 	{
-		KEEP(.exception.table)
+		KEEP(*(.exception.table))
 		KEEP(.start.init)
 		*(.text*)
 
