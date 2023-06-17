@@ -78,6 +78,7 @@ extern_vector:	.space  0x1000
 
 	.extern  do_reset
 	.extern  do_NMI
+	.extern  do_hard_fault
 	.extern	 do_mem_fault
 	.extern  do_bus_fault
 	.extern  do_usage_fault
@@ -91,6 +92,9 @@ extern_vector:	.space  0x1000
 	.align   2
 	.global  reset_handler
 reset_handler:
+		mov   r0,  7
+		mov   r0,  7
+		mov   r0,  7
 		b  do_reset
 
 
@@ -103,7 +107,10 @@ NMI_handler:
 
 
 hard_fault_handler:
-			b  .
+		SAVE_CONTEXT
+		bl  do_hard_fault
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
 
 memory_fault_handler:
 		SAVE_CONTEXT

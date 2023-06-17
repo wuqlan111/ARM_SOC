@@ -89,7 +89,22 @@ void  do_pendsv()
 }
 
 
+void do_hard_fault()
+{
 
+
+    int32_t  a  =  0;
+
+    int32_t  ret  =  0;
+
+    ret  =  a + 1;
+
+
+
+
+    return;
+
+}
 
 
 
