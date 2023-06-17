@@ -28,18 +28,20 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${TARGET_OUT_DIR}/bin)
 
 # set compile flag
 set(CMAKE_C_COMPILER_FORCED   TURE)
-set(CMAKE_C_FLAGS  "-mcpu=cortex-m3 -mthumb -march=armv7-m -g -Wall -fno-builtin -fno-strict-aliasing")
+
+set(CMAKE_C_FLAGS  "-mcpu=cortex-m3 -mthumb -g -Wall -fno-builtin -fno-strict-aliasing")
 set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -ffunction-sections -fdata-sections -fno-common")
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -O0 --specs=nosys.specs -ggdb")
-set(CMAKE_ASM_FLAGS "-mcpu=cortex-m3 -mthumb -march=armv7-m -g  -x assembler")
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}  -O0 --specs=nosys.specs -ggdb -fno-exceptions")
+set(CMAKE_ASM_FLAGS "-mcpu=cortex-m3 -mthumb -g  -x assembler")
 set(CMAKE_BUILD_TYPE "Debug")
 # set_property(SOURCE boot/init.S  PROPERTY LANGUAGE C)
 
 # set link option
 set(LINK_SCRIPT    ${CMAKE_CURRENT_SOURCE_DIR}/boot/boot.ld)
-set(CMAKE_EXE_LINKER_FLAGS  "--specs=nosys.specs -T${LINK_SCRIPT}")
-set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}  -Wl,--cref ")
-set(CMAKE_EXE_LINKER_FLAGS  "-Wl,-Map=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.map")
+set(CMAKE_C_FLAGS  "-T ${LINK_SCRIPT}")
+# set(CMAKE_EXE_LINKER_FLAGS  "--specs=nosys.specs -T${LINK_SCRIPT}")
+# set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}  -Wl,--cref ")
+# set(CMAKE_EXE_LINKER_FLAGS  "-Wl,-Map=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.map")
 
 
 # add include dir

@@ -133,7 +133,7 @@ SECTIONS
 		/* All data end */
 		__data_end__ = .;
 
-	} > EMBEDDED_SRAM1RAM
+	} > EMBEDDED_SRAM1
 
 	.bss :
 	{
@@ -143,7 +143,7 @@ SECTIONS
 		*(COMMON)
 		. = ALIGN(4);
 		__bss_end__ = .;
-	} > EMBEDDED_SRAM1RAM
+	} > EMBEDDED_SRAM1
 	
 	.heap (COPY):
 	{
@@ -151,7 +151,7 @@ SECTIONS
 		PROVIDE(end = .);
 		*(.heap*)
 		__HeapLimit = .;
-	} > EMBEDDED_SRAM1RAM
+	} > EMBEDDED_SRAM1
 
 	/* .stack_dummy section doesn't contains any symbols. It is only
 	 * used for linker to calculate size of stack sections, and assign
@@ -159,11 +159,11 @@ SECTIONS
 	.stack_dummy (COPY):
 	{
 		*(.stack*)
-	} > EMBEDDED_SRAM1RAM
+	} > EMBEDDED_SRAM1
 
 	/* Set stack top to end of RAM, and stack limit move down by
 	 * size of stack_dummy section */
-	__StackTop = ORIGIN(RAM) + LENGTH(RAM);
+	__StackTop = ORIGIN(SYSTEM_RAM) + LENGTH(SYSTEM_RAM);
 	__StackLimit = __StackTop - SIZEOF(.stack_dummy);
 	PROVIDE(__stack = __StackTop);
 	

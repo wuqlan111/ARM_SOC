@@ -43,12 +43,17 @@
                     __asm__ volatile("\tmsr %0, "(name)::"=r"(val):"=r"(val));  \
                 }
 
-
+#if 0
 #define  CLEAR_PRIMASK()     __asm__ volatile("\tcpsie i":::)
 #define  SET_PRIMASK()       __asm__ volatile("\tcpsid i":::)
 #define  CLEAR_FAULTMASK()   __asm__ volatile("\tcpsie f":::)
 #define  SET_FAULTMASK()     __asm__ volatile("\tcpsid f":::)
+#endif
 
+#define  CLEAR_PRIMASK()
+#define  SET_PRIMASK()
+#define  CLEAR_FAULTMASK()
+#define  SET_FAULTMASK()
 
 #define  SCS_BASE_ADDR       (0xE000E000u)
 #define  SYSTICK_REG_OFFSET  (0x10u)
