@@ -133,7 +133,7 @@ SECTIONS
 		/* All data end */
 		__data_end__ = .;
 
-	} > EMBEDDED_SRAM1
+	} > FLASH
 
 	.bss :
 	{
@@ -143,7 +143,7 @@ SECTIONS
 		*(COMMON)
 		. = ALIGN(4);
 		__bss_end__ = .;
-	} > EMBEDDED_SRAM1
+	} > FLASH
 	
 	.heap (COPY):
 	{
@@ -151,7 +151,7 @@ SECTIONS
 		PROVIDE(end = .);
 		*(.heap*)
 		__HeapLimit = .;
-	} > EMBEDDED_SRAM1
+	} > FLASH
 
 	/* .stack_dummy section doesn't contains any symbols. It is only
 	 * used for linker to calculate size of stack sections, and assign
@@ -159,7 +159,7 @@ SECTIONS
 	.stack_dummy (COPY):
 	{
 		*(.stack*)
-	} > EMBEDDED_SRAM1
+	} > FLASH
 
 	/* Set stack top to end of RAM, and stack limit move down by
 	 * size of stack_dummy section */
