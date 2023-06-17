@@ -8,7 +8,7 @@
  */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 0x100000 /* 1MB */
+  FLASH (rx) : ORIGIN = 0x0, LENGTH = 0x100000 /* 1MB */
   SYSTEM_RAM (rwx) : ORIGIN = 0x1FFF0000, LENGTH = 0x7800 /* 30K */
   EMBEDDED_SRAM1(rwx): ORIGIN = 0x20000000, LENGTH = 0x1C000 /* 112K */
 }
@@ -18,11 +18,15 @@ ENTRY(reset_handler)
 
 SECTIONS
 {
+    .isr_vector :
+    {
+        KEEP(*(.exception.table))
+         . = ALIGN(4);
+    } > FLASH
+
 	.text :
 	{
-		KEEP(*(.exception.table))
-		KEEP(.start.init)
-		*(.text*)
+		KEEP(*(.text*))
 
 		KEEP(*(.init))
 		KEEP(*(.fini))
