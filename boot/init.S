@@ -89,6 +89,8 @@ extern_vector:	.space  0x1000
 	.extern  do_pendsv
 	.extern  do_systick
 
+	.extern  PROCESS_STACK_TOP
+
 	.text
 	.thumb
 	.thumb_func
@@ -96,6 +98,8 @@ extern_vector:	.space  0x1000
 	.global  reset_handler
 	.type	reset_handler, %function
 reset_handler:
+		mov    r0,   PROCESS_STACK_TOP
+		msr    psp,  r0
 		b   main
 
 
