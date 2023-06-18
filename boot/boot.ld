@@ -151,15 +151,25 @@ SECTIONS
 		PROVIDE(end = .);
 		*(.heap*)
 		__HeapLimit = .;
-	} > SYSTEM_RAM
+	} > EMBEDDED_SRAM1
 
 	/* .stack_dummy section doesn't contains any symbols. It is only
 	 * used for linker to calculate size of stack sections, and assign
 	 * values to stack symbols later */
 	.stack_dummy (COPY):
 	{
+		. = ALIGN(4);
 		*(.stack*)
-	} > SYSTEM_RAM
+	} > EMBEDDED_SRAM1
+
+	MAIN_STACK_TOP    =  ORIGIN(EMBEDDED_SRAM1) + LENGTH(EMBEDDED_SRAM1);
+	MAIN_STACK_LIMIT  =  MAIN_STACK_TOP - 0x2000;
+
+	PROCESS_STACK_TOP    =  MAIN_STACK_LIMIT - 0x1000;
+	PROCESS_STACK_LIMIT  =  PROCESS_STACK_TOP - 0x2000;
+
+	PROVIDE(__stack = MAIN_STACK_TOP);
+
 
 }
 

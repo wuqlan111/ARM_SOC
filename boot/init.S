@@ -2,35 +2,30 @@
 	.syntax	unified
 	.arch	armv7-m
 
+
+	.equ	MAIN_STACK_SIZE, 0x2000
+	.equ	PROCESS_STACK_SIZE, 0x2000
+
+
 	.section .main.stack
 	.align	3
-#ifdef _MAIN_STACK_SIZE
-	.equ	MAIN_STACK_SIZE, _MAIN_STACK_SIZE
-#else
-	.equ	MAIN_STACK_SIZE, 0x1000
-#endif
 	.globl	MAIN_STACK_TOP
 	.globl	MAIN_STACK_LIMIT
 MAIN_STACK_LIMIT:
 	.space	MAIN_STACK_SIZE
-	@ .size	MAIN_STACK_LIMIT, . - MAIN_STACK_LIMIT
+	.size	MAIN_STACK_LIMIT, . - MAIN_STACK_LIMIT
 MAIN_STACK_TOP:
-	@ .size	MAIN_STACK_TOP, . - MAIN_STACK_TOP
+	.size	MAIN_STACK_TOP, . - MAIN_STACK_TOP
 
 	.section .process.stack
 	.align	3
-#ifdef _PROCESS_STACK_SIZE
-	.equ	PROCESS_STACK_SIZE, _PROCESS_STACK_SIZE
-#else
-	.equ	PROCESS_STACK_SIZE, 0x1000
-#endif
 	.globl	PROCESS_STACK_TOP
 	.globl	PROCESS_STACK_LIMIT
 PROCESS_STACK_LIMIT:
 	.space	PROCESS_STACK_SIZE
-	@ .size	PROCESS_STACK_LIMIT, . - PROCESS_STACK_LIMIT
+	.size	PROCESS_STACK_LIMIT, . - PROCESS_STACK_LIMIT
 PROCESS_STACK_TOP:
-	@ .size	PROCESS_STACK_TOP, . - PROCESS_STACK_TOP
+	.size	PROCESS_STACK_TOP, . - PROCESS_STACK_TOP
 
 
 	.section  .exception.table, "a",%progbits
@@ -54,7 +49,7 @@ expr_vector_table:
 	.word pendsv_handler
 	.word systick_handler
 extern_vector:	.space  0x1000
-	@ .size	expr_vector_table, . - expr_vector_table
+	.size	expr_vector_table, . - expr_vector_table
 
 
 	.macro  SAVE_CONTEXT
