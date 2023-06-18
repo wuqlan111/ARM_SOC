@@ -9,8 +9,8 @@
 
 	.section .main.stack
 	.align	3
-	.globl	MAIN_STACK_TOP
-	.globl	MAIN_STACK_LIMIT
+	.global	 MAIN_STACK_TOP
+	.global	 MAIN_STACK_LIMIT
 MAIN_STACK_LIMIT:
 	.space	MAIN_STACK_SIZE
 	.size	MAIN_STACK_LIMIT, . - MAIN_STACK_LIMIT
@@ -19,8 +19,8 @@ MAIN_STACK_TOP:
 
 	.section .process.stack
 	.align	3
-	.globl	PROCESS_STACK_TOP
-	.globl	PROCESS_STACK_LIMIT
+	.global	 PROCESS_STACK_TOP
+	.global	 PROCESS_STACK_LIMIT
 PROCESS_STACK_LIMIT:
 	.space	PROCESS_STACK_SIZE
 	.size	PROCESS_STACK_LIMIT, . - PROCESS_STACK_LIMIT
@@ -96,10 +96,6 @@ extern_vector:	.space  0x1000
 	.global  reset_handler
 	.type	reset_handler, %function
 reset_handler:
-		mov   r0,  #MAIN_STACK_TOP
-		msr  msp,  r0
-		mov   r0,  #PROCESS_STACK_TOP
-		msr  psp,  r0
 		b   main
 
 
