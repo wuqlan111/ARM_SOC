@@ -8,13 +8,6 @@
 #include "asm/traps.h"
 
 
-void  do_reset()
-{
-
-
-}
-
-
 void  do_NMI()
 {
 

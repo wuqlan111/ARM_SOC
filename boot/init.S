@@ -78,7 +78,7 @@ extern_vector:	.space  0x1000
 	.endm
 
 
-	.extern  do_reset
+	.extern  main
 	.extern  do_NMI
 	.extern  do_hard_fault
 	.extern	 do_mem_fault
@@ -96,10 +96,11 @@ extern_vector:	.space  0x1000
 	.global  reset_handler
 	.type	reset_handler, %function
 reset_handler:
-		mov   r0,  7
-		mov   r0,  7
-		mov   r0,  7
-		b  do_reset
+		mov   r0,  #MAIN_STACK_TOP
+		msr  msp,  r0
+		mov   r0,  #PROCESS_STACK_TOP
+		msr  psp,  r0
+		b   main
 
 
 
