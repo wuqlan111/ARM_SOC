@@ -33,23 +33,6 @@ PROCESS_STACK_TOP:
 	@ .size	PROCESS_STACK_TOP, . - PROCESS_STACK_TOP
 
 
-	.macro  SAVE_CONTEXT
-			push   {r0-r7}
-			mrs	   r0, control
-			push   {r0}
-	.endm
-
-	.macro  RESUME_CONTEXT
-			pop  {r0}
-			msr  control, r0
-			pop  {r0-r7}
-	.endm
-
-	.macro  RETURN_FROM_EXCEPTION
-		bx  lr
-	.endm
-
-
 	.section  .exception.table, "a",%progbits
 	.align  2	
 	.global  expr_vector_table
@@ -74,6 +57,30 @@ extern_vector:	.space  0x1000
 	@ .size	expr_vector_table, . - expr_vector_table
 
 
+	.macro  SAVE_CONTEXT
+			push   {r0-r7}
+			mrs	   r0, control
+			push   {r0}
+	.endm
+
+	.macro  RESUME_CONTEXT
+			pop  {r0}
+			msr  control, r0
+			pop  {r0-r7}
+	.endm
+
+	.macro  RETURN_FROM_EXCEPTION
+		bx  lr
+	.endm
+
+
+	.macro	def_irq_handler	handler_name
+			.align	1
+			.thumb_func
+			.type	\handler_name, %function
+			.size	\handler_name, . - \handler_name
+			\handler_name:
+	.endm
 
 
 	.extern  do_reset
@@ -101,20 +108,20 @@ reset_handler:
 
 
 
-NMI_handler:
+    def_irq_handler  NMI_handler
 		SAVE_CONTEXT
 		bl  do_NMI
 		RESUME_CONTEXT
 		RETURN_FROM_EXCEPTION
 
 
-hard_fault_handler:
+    def_irq_handler  hard_fault_handler
 		SAVE_CONTEXT
 		bl  do_hard_fault
 		RESUME_CONTEXT
 		RETURN_FROM_EXCEPTION
 
-memory_fault_handler:
+    def_irq_handler  memory_fault_handler
 		SAVE_CONTEXT
 		bl  do_mem_fault
 		RESUME_CONTEXT
@@ -122,49 +129,30 @@ memory_fault_handler:
 
 
 
-bus_fault_handler:
+    def_irq_handler  bus_fault_handler
 		SAVE_CONTEXT
 		bl  do_bus_fault
 		RESUME_CONTEXT
 		RETURN_FROM_EXCEPTION
 
 
-usage_fault_handler:
-					SAVE_CONTEXT
-                    bl  do_usage_fault
-					RESUME_CONTEXT
-					RETURN_FROM_EXCEPTION
+    def_irq_handler  usage_fault_handler
+		SAVE_CONTEXT
+		bl  do_usage_fault
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
 
-svcall_handler:
+    def_irq_handler  svcall_handler
 			b  .
 
-debug_handler:
+    def_irq_handler  debug_handler
 			b  .
 
-pendsv_handler:
+    def_irq_handler  pendsv_handler
 			b   .
 
-systick_handler:
+    def_irq_handler  systick_handler
 			b  .
-
-
-
-
-
-
-
-
-
-@ #define BUILD_EXCEPTION(name, fn)	\
-@ 	.func  (name)	\
-@ 		SAVE_CONTEXT;		\
-@ 		bl  (fn);	\
-@ 		RESUME_CONTEXT;		\
-@ 		RETURN_FROM_EXCEPTION;		\
-@ 	.endfunc
-
-
-
 
 
 	
