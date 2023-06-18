@@ -89,8 +89,10 @@ extern_vector:	.space  0x1000
 
 	.text
 	.thumb
+	.thumb_func
 	.align   2
 	.global  reset_handler
+	.type	reset_handler, %function
 reset_handler:
 		mov   r0,  7
 		mov   r0,  7

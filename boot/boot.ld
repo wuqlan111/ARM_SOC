@@ -13,7 +13,7 @@ MEMORY
   EMBEDDED_SRAM1(rwx): ORIGIN = 0x20000000, LENGTH = 0x1C000 /* 112K */
 }
 
-
+OUTPUT_ARCH(arm)
 ENTRY(reset_handler)
 
 SECTIONS
@@ -151,7 +151,7 @@ SECTIONS
 		PROVIDE(end = .);
 		*(.heap*)
 		__HeapLimit = .;
-	} > FLASH
+	} > SYSTEM_RAM
 
 	/* .stack_dummy section doesn't contains any symbols. It is only
 	 * used for linker to calculate size of stack sections, and assign
@@ -159,16 +159,8 @@ SECTIONS
 	.stack_dummy (COPY):
 	{
 		*(.stack*)
-	} > FLASH
+	} > SYSTEM_RAM
 
-	/* Set stack top to end of RAM, and stack limit move down by
-	 * size of stack_dummy section */
-	__StackTop = ORIGIN(SYSTEM_RAM) + LENGTH(SYSTEM_RAM);
-	__StackLimit = __StackTop - SIZEOF(.stack_dummy);
-	PROVIDE(__stack = __StackTop);
-	
-	/* Check if data + heap + stack exceeds RAM limit */
-	ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
 }
 
 
