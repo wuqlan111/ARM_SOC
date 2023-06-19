@@ -2,22 +2,17 @@
 #include  <stdio.h>
 #include  <stdint.h>
 
+#include  "arch_printk.h"
 
-static  uint32_t  times  =  0;
 
 int  main(void)
 {
 
-
-    while (1) {
-
-
-        times++;
-
+    for (int32_t i = 0; i < 4; i++) {
+        __DBG_PRINTF_ALL("/********%d****/\n", i);
     }
 
-
-
+    while(1) ;
 
     return  0;
 }
