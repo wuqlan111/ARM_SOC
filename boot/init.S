@@ -2,32 +2,6 @@
 	.syntax	unified
 	.arch	armv7-m
 
-
-	.equ	MAIN_STACK_SIZE, 0x2000
-	.equ	PROCESS_STACK_SIZE, 0x2000
-
-
-	.section .main.stack
-	.align	3
-	.global	 MAIN_STACK_TOP
-	.global	 MAIN_STACK_LIMIT
-MAIN_STACK_LIMIT:
-	.space	MAIN_STACK_SIZE
-	.size	MAIN_STACK_LIMIT, . - MAIN_STACK_LIMIT
-MAIN_STACK_TOP:
-	.size	MAIN_STACK_TOP, . - MAIN_STACK_TOP
-
-	.section .process.stack
-	.align	3
-	.global	 PROCESS_STACK_TOP
-	.global	 PROCESS_STACK_LIMIT
-PROCESS_STACK_LIMIT:
-	.space	PROCESS_STACK_SIZE
-	.size	PROCESS_STACK_LIMIT, . - PROCESS_STACK_LIMIT
-PROCESS_STACK_TOP:
-	.size	PROCESS_STACK_TOP, . - PROCESS_STACK_TOP
-
-
 	.section  .exception.table, "a",%progbits
 	.align  2	
 	.global  expr_vector_table
@@ -78,7 +52,7 @@ extern_vector:	.space  0x1000
 	.endm
 
 
-	.extern  main
+	.extern  arch_init
 	.extern  do_NMI
 	.extern  do_hard_fault
 	.extern	 do_mem_fault
@@ -89,7 +63,11 @@ extern_vector:	.space  0x1000
 	.extern  do_pendsv
 	.extern  do_systick
 
+	.extern  MAIN_STACK_LIMIT
+	.extern  MAIN_STACK_TOP
+	.extern  PROCESS_STACK_LIMIT
 	.extern  PROCESS_STACK_TOP
+
 
 	.text
 	.thumb
@@ -98,7 +76,7 @@ extern_vector:	.space  0x1000
 	.global  reset_handler
 	.type	reset_handler, %function
 reset_handler:
-		mov    r0,   PROCESS_STACK_TOP
+		ldr    r0,   =PROCESS_STACK_TOP
 		msr    psp,  r0
 		b   main
 
