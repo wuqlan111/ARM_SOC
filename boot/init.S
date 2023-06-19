@@ -63,12 +63,6 @@ extern_vector:	.space  0x1000
 	.extern  do_pendsv
 	.extern  do_systick
 
-	.extern  MAIN_STACK_LIMIT
-	.extern  MAIN_STACK_TOP
-	.extern  PROCESS_STACK_LIMIT
-	.extern  PROCESS_STACK_TOP
-
-
 	.text
 	.thumb
 	.thumb_func
@@ -76,9 +70,10 @@ extern_vector:	.space  0x1000
 	.global  reset_handler
 	.type	reset_handler, %function
 reset_handler:
+		@ set process stack
 		ldr    r0,   =PROCESS_STACK_TOP
 		msr    psp,  r0
-		b   main
+		b   arch_init
 
 
 
