@@ -8,7 +8,7 @@
 int  main(void)
 {
 
-    for (int32_t i = 0; i < 4; i+=1) {
+    for (int32_t i = 0; i < 4; i++) {
         
         __DBG_PRINTF_ALL("/********%d****/\n", i);
     }
