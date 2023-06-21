@@ -12,7 +12,7 @@ OUTDIR = $(PROJECT_ROOT)/target
 
 CFLAGS   =  -mcpu=cortex-m3 -mthumb -g -Wall -fno-builtin -fno-strict-aliasing 
 CFLAGS  +=  -ffunction-sections -fdata-sections -fno-common -std=c99
-CFLAGS  +=  --specs=nosys.specs -ggdb -fno-exceptions
+CFLAGS  +=  -specs=nosys.specs -ggdb -fno-exceptions
 CFLAGS  +=  -O0 -DDEBUG
 
 LDFLAGS = -T  $(PROJECT_ROOT)/boot/boot.ld  -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
