@@ -4,8 +4,8 @@
 #include  <string.h>
 
 #include "arch_regs.h"
-#include "asm/context_stack.h"
-#include "asm/traps.h"
+#include "context_stack.h"
+#include "traps.h"
 
 
 void  do_NMI()

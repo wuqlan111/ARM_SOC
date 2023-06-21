@@ -3,7 +3,7 @@
 #include  <stdio.h>
 #include  <stdarg.h>
 
-#include "asm/arch_printk.h"
+#include "arch_printk.h"
 
 #define  EARLY_LOG_SIZE           8192
 #define  MAX_INFO_LEN           128
