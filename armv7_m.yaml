@@ -1,6 +1,8 @@
 common:
+    output:
+        - exe
     target:
-      - armv7_m
+        - cortex-m3
     includes:
         - include/asm
     sources:
@@ -10,7 +12,14 @@ common:
         - mm
         - test
     macros:
-        - DEBUG 
+        - DEBUG
+    tools_supported:
+        - make_gcc_arm
+        - uvision
+    export_dir:
+        - output/{tool}/{project_name}
+    
+    
 tool_specific:
     gcc_arm:
         linker_file:
@@ -35,3 +44,25 @@ tool_specific:
                 - gcc
                 - c
                 - nosys
+            ld_flags:
+                - -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
+    uvision:
+        macros:
+            - MACRO_FOR_UVISION
+        misc:
+            c_flags:
+                - -g 
+                - -ggdb
+                - -O0 
+                - -Wall 
+                - -fno-strict-aliasing
+                - -ffunction-sections 
+                - -fdata-sections 
+                - -fno-exceptions
+                - -fno-builtin 
+                - -mthumb
+                - -mcpu=cortex-m3
+                - -std=c99
+                - --specs=nosys.specs
+            ld_flags:
+                - -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
