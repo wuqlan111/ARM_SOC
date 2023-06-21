@@ -5,7 +5,7 @@ AR=arm-none-eabi-ar
 OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 
-PROJECT_ROOT=../../
+PROJECT_ROOT=../..
 
 TARGET_NAME = armv7
 OUTDIR = $(PROJECT_ROOT)/target
@@ -17,7 +17,7 @@ CFLAGS  +=  -O0 -DDEBUG
 
 LDFLAGS = -T  $(PROJECT_ROOT)/boot/boot.ld  -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
 
-INCLUDES =  -I./include/asm -I./include/
+INCLUDES =  -I$(PROJECT_ROOT)/include/asm  -I$(PROJECT_ROOT)/include/
 
 SRCS  =   $(PROJECT_ROOT)/boot/init.S   $(PROJECT_ROOT)/kernel/*.c    $(PROJECT_ROOT)/mm/*.c
 SRCS  +=  $(PROJECT_ROOT)/test/*.c
