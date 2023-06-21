@@ -5,19 +5,22 @@ AR=arm-none-eabi-ar
 OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 
+PROJECT_ROOT=../../
+
 TARGET_NAME = armv7
-OUTDIR = ./target
+OUTDIR = $(PROJECT_ROOT)/target
 
 CFLAGS   =  -mcpu=cortex-m3 -mthumb -g -Wall -fno-builtin -fno-strict-aliasing 
 CFLAGS  +=  -ffunction-sections -fdata-sections -fno-common -std=c99
 CFLAGS  +=  --specs=nosys.specs -ggdb -fno-exceptions
 CFLAGS  +=  -O0 -DDEBUG
 
-LDFLAGS = -T ./boot/boot.ld  -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
+LDFLAGS = -T  $(PROJECT_ROOT)/boot/boot.ld  -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
 
 INCLUDES =  -I./include/asm -I./include/
 
-SRCS +=  ./boot/init.S   ./kernel/*.c    ./mm/*.c   ./test/*.c
+SRCS  =   $(PROJECT_ROOT)/boot/init.S   $(PROJECT_ROOT)/kernel/*.c    $(PROJECT_ROOT)/mm/*.c
+SRCS  +=  $(PROJECT_ROOT)/test/*.c
 
 
 all:
