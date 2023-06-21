@@ -46,7 +46,7 @@ tool_specific:
                 - nosys
             ld_flags:
                 - -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
-    uvision:
+    uvision5:
         macros:
             - MACRO_FOR_UVISION
         misc:
