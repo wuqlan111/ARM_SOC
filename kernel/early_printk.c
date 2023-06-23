@@ -42,11 +42,13 @@ int32_t  early_printk(const char * fmt,  ...)
 
 int32_t  get_early_log(char * out)
 {
-    if (!out)
-        return  -1;
+    if (!out) {
+        return  -1;        
+    }
 
-    if (head  ==  tail)
-        return  -1;
+    if (head  ==  tail) {
+        return  -1;        
+    }
 
     uint32_t  len = strlen(&early_log_buffer[head]);
     
