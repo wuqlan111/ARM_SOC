@@ -83,8 +83,8 @@ int32_t  write_to_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t l
 
 int32_t  read_to_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t size, uint32_t * len)
 {
-    uint32_t  head_pos,  tail_pos, tail_res, ret_count;
-    head_pos   =  tail_pos  =  tail_res  =  ret_count = 0;
+    uint32_t  head_pos,  tail_pos, head_res, ret_count;
+    head_pos   =  tail_pos  =  head_res  =  ret_count = 0;
 
     if ( !check_ring_buffer_valid(buffer) || !data || !size  || !len) {
         return  -1;
@@ -101,31 +101,24 @@ int32_t  read_to_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t si
         ret_count  =  buffer->tail - buffer->head;
     }
 
+    *len    =  ret_count;
+
     head_pos   =  buffer->head % buffer->size;
     tail_pos   =  buffer->tail % buffer->size;
-    tail_res   =  buffer->size - tail_pos;
+    head_res   =  buffer->size - head_pos;
 
-
-    if ( (head_pos >=  tail_pos)  || (tail_res >= len)) {
-        memcpy(&buffer->buffer[tail_pos], data,  len);
+    if ( (head_pos <  tail_pos)  || (head_res >= ret_count)) {
+        memcpy(data,  &buffer->buffer[head_pos], ret_count);
     } else {
-        memcpy(&buffer->buffer[tail_pos], data,  tail_res);
-        memcpy(&buffer->buffer[0], data + tail_res, len - tail_res);
+        memcpy(data,   &buffer->buffer[head_pos],   head_res);
+        memcpy(data + head_res,   &buffer->buffer[0],  ret_count - head_res);
     }
 
-    buffer->tail += len;
-
-    if (buffer->tail  < buffer->head) {
-        buffer->tail  =  (buffer->tail % buffer->size)  +  buffer->size;
-        buffer->head  =  buffer->head % buffer->size;
-    }
+    buffer->head += ret_count;
 
     return  0;
 
 }
-
-
-
 
 
 
