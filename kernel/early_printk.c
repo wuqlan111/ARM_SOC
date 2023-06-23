@@ -16,17 +16,20 @@ static  uint32_t  tail = 0;
 int32_t  early_printk(const char * fmt,  ...)
 {
     char buf[MAX_INFO_LEN + 1] = {0};
-    if (!fmt)
-        return -1;
+    if (!fmt) {
+        return -1;        
+    }
 
     va_list args;
     va_start(args, fmt);
     vsprintf(buf,  fmt, args);
+    va_end(args);
 
     uint32_t len = strlen(buf);
 
-    if ( (len > 128 ) || (tail + len > EARLY_LOG_SIZE -1))
-        return -1;
+    if ( (len > MAX_INFO_LEN ) || (tail + len > EARLY_LOG_SIZE -1)) {
+        return -1;        
+    }
 
     memcpy(&early_log_buffer[tail], buf, len);
     early_log_buffer[tail+len - 1] = '\0';
