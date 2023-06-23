@@ -421,6 +421,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\test\main.c</FilePath>
             </File>
+            <File>
+              <FileName>early_printk_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\test\early_printk_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
