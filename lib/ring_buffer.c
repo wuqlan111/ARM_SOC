@@ -79,7 +79,7 @@ int32_t  write_to_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t l
 }
 
 
-int32_t  read_to_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t size, uint32_t * len)
+int32_t  read_from_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t size, uint32_t * len)
 {
     uint32_t  head_pos,  tail_pos, head_res, ret_count;
     head_pos   =  tail_pos  =  head_res  =  ret_count = 0;
@@ -105,7 +105,7 @@ int32_t  read_to_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t si
             return  -1;
         }
 
-        if (!new_len ||  (new_len > size)  ) {
+        if (!new_len ||  (new_len > ret_count)  ) {
             return   -1;
         }
 
