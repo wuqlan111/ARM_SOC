@@ -27,19 +27,27 @@ int32_t  set_mpu_region_config(uint32_t  region,  mpu_region_config_t * config)
 {
     int32_t  ret  =  0;
     uint32_t  max_region =  get_mpu_max_regions();
-    if ( (region >= max_region) || !config) {
+    if ( (region >= max_region) || !config || (config->base_addr & 0x1f)) {
         return  -1;        
     }
 
+    if (config->size  < MIN_REGION_SIZE) {
+        return  -1;
+    }
+
+    REG32_WRITE(MPU_RNR_REG_ADDR,  region);
     
-    
+    if (config->base_addr % config->size) {
+        return  -1;
+    }
 
+    REG32_WRITE(MPU_RBAR_REG_ADDR,  config->base_addr);
 
+    uint32_t  flag  =  0;
 
-
-
-
-
+    flag   =   config->access  <<  24;
+    flag  |=   config->tex     <<  19;
+    flag  |=   config->size    <<  1;
 
 
 
