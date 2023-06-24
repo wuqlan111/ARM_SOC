@@ -35,6 +35,16 @@ void  mpu_test(void)
     /*get */
 
     mpu_region_config_t  region_conf =  {0};
+
+    __DBG_PRINTF_ALL("/*******1********/\n");
+    if (get_mpu_region_config(1,  &region_conf)) {
+        __DBG_PRINTF_ALL("get mpu region failed!\n");
+    } else {
+        printf_mpu_region_config(&region_conf);
+    }
+
+    memset(&region_conf,   0,  sizeof(mpu_region_config_t));
+
     region_conf.access   =  0x2;
     region_conf.base_addr      =     0xf100;
     region_conf.cacheable      =     1;
@@ -42,6 +52,7 @@ void  mpu_test(void)
     region_conf.sub_bits       =     0x2f;
     region_conf.size           =     64;
 
+    __DBG_PRINTF_ALL("/*******2********/\n");
     if (set_mpu_region_config(1,  &region_conf)) {
         __DBG_PRINTF_ALL("set mpu region failed!\n");
     } else {
@@ -50,6 +61,7 @@ void  mpu_test(void)
 
     memset(&region_conf,   0,  sizeof(mpu_region_config_t));
 
+    __DBG_PRINTF_ALL("/*******3********/\n");
     if (get_mpu_region_config(1,  &region_conf)) {
         __DBG_PRINTF_ALL("get mpu region failed!\n");
     } else {
