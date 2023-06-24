@@ -21,7 +21,7 @@ static inline void enable_or_disable_default_map(uint32_t enable)
 
 }
 
-static inline void enable_or_disable_mpu_handler(uint32_t enable)
+static inline void enable_or_disable_mpu_exception_occur(uint32_t enable)
 {
     uint32_t  flag =  enable? 1<<1:0;
     REG32_UPDATE(MPU_CTRL_REG_ADDR, flag,  1 << 1);
@@ -35,7 +35,12 @@ static inline void enable_or_disable_mpu(uint32_t enable)
 }
 
 
-
+int32_t  get_region_base_addr(uint32_t region, uint32_t * addr);
+int32_t  set_region_base_addr(uint32_t region, uint32_t addr);
+int32_t  set_region_size(uint32_t region, uint32_t size);
+int32_t  set_region_size(uint32_t region, uint32_t size);
+int32_t  enable_or_disable_region(uint32_t region, uint32_t enable);
+int32_t  enable_or_disable_subregison(uint32_t region, uint32_t sub_bits, uint32_t enable);
 
 
 
