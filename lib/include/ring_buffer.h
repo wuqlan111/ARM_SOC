@@ -4,13 +4,16 @@
 
 #include  <stdint.h>
 
+#include "gcc_type.h"
 
+#pragma pack(4)
 typedef struct {
     uint32_t  head;
-    const  uint32_t  size;
     uint32_t  tail;
+    const  uint32_t  size;
     uint8_t  *  const  buffer;
-}ring_buffer_t;
+}ATTRIBUTE_ALIGN(4)  ring_buffer_t;
+#pragma pack()
 
 int32_t  get_ring_buffer_data_len(ring_buffer_t * buffer, uint32_t  * len);
 void  clean_ring_buffer_data(ring_buffer_t * buffer);

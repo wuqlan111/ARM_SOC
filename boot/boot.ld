@@ -108,8 +108,9 @@ SECTIONS
 	   which must be 4byte aligned */
 	__etext = ALIGN (4);
 
-	.data : AT (__etext)
+	.data :
 	{
+		. = ALIGN(4);
 		__data_start__ = .;
 		*(vtable)
 		*(.data*)
