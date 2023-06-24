@@ -5,12 +5,12 @@
 #include  "arch_printk.h"
 
 
-extern  void  test_early_printk(void);
+extern  void  mpu_test(void);
 
 int  main(void)
 {
 
-    test_early_printk();
+    mpu_test();
 
     while(1) ;
 

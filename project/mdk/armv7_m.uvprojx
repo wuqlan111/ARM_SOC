@@ -443,6 +443,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\test\early_printk_test.c</FilePath>
             </File>
+            <File>
+              <FileName>mpu_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\test\mpu_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

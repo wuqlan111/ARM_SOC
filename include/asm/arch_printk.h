@@ -5,8 +5,8 @@
 #include  <stdint.h>
 
 #ifdef DEBUG
-#define  __DBG_PRINTF_ALL(fmt, ...)     early_printk("<DEBUG>[%s:%d]:\t" fmt, __FILE__, __LINE__, __VA_ARGS__)
-#define  __DBG_PRINTF(fmt, ...)         early_printk(fmt, __VA_ARGS__)
+#define  __DBG_PRINTF_ALL(fmt, ...)     early_printk("<DEBUG>[%s:%d]:\t" fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#define  __DBG_PRINTF(fmt, ...)         early_printk(fmt, ##__VA_ARGS__)
 #else
 #define  __DBG_PRINTF_ALL(fmt, ...)
 #define  __DBG_PRINTF(fmt, ...)
