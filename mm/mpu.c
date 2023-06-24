@@ -44,10 +44,7 @@ int32_t  set_mpu_region_config(uint32_t  region,  mpu_region_config_t * config)
         return  -1;
     }
 
-
-    REG32_WRITE(MPU_RNR_REG_ADDR,  region);
-
-    REG32_WRITE(MPU_RBAR_REG_ADDR,  config->base_addr | (1<<4));
+    REG32_WRITE(MPU_RBAR_REG_ADDR,  config->base_addr | (1<<4) | region);
 
     uint32_t  flag,  mask;
     flag  =  mask  =  0;
@@ -75,6 +72,8 @@ int32_t  set_mpu_region_config(uint32_t  region,  mpu_region_config_t * config)
 
     mask   =   (1 << 28) | (7 << 24) | (0x3fff << 8) | (0x1f << 1);
     REG32_UPDATE(MPU_RASR_REG_ADDR,   flag,   mask);
+
+    REG32_WRITE(MPU_RNR_REG_ADDR,  region);
 
     return   0;
 
