@@ -7,7 +7,7 @@
 
 
 #define  MIN_REGION_SIZE     32
-
+#define  MPU_RASR_MIN_SIZE           4
 
 int32_t  enable_or_disable_region(uint32_t region, uint32_t enable)
 {
@@ -104,9 +104,16 @@ int32_t  get_mpu_region_config(uint32_t  region,  mpu_region_config_t * config)
     config->cacheable     =    flag &  (1 << 17)?  1:  0;
     config->write_back    =    flag &  (1 << 16)?  1:  0;
     config->sub_bits      =    ( flag >> 8 ) & 0xff;
-    config->size          =    1 << ( ((flag >> 1 ) & 0x1f) +  1);
+    config->size          =    0;
+
+    uint32_t  tmp_size   =   (flag >> 1 ) & 0x1f;
+
+    if (tmp_size >= MPU_RASR_MIN_SIZE) {
+        config->size     =   1  <<  ((tmp_size) + 1);
+    }
     
     return   0;
+
 }
 
 
