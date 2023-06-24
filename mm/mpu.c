@@ -96,7 +96,7 @@ int32_t  get_mpu_region_config(uint32_t  region,  mpu_region_config_t * config)
     REG32_WRITE(MPU_RNR_REG_ADDR,  region);
     flag  =   REG32_READ(MPU_RASR_REG_ADDR);
 
-    config->base_addr  =  REG32_READ(MPU_RBAR_REG_ADDR) & 0x1f;
+    config->base_addr  =  REG32_READ(MPU_RBAR_REG_ADDR) & (~0x1f);
     config->never_execute    =  flag & (1<<28)? 1:  0;
     config->access     =    (flag  >>  24) &  0x7;
     config->tex        =    (flag  >>  19) &  0x7;
