@@ -1,6 +1,7 @@
 
 #include <stdint.h>
 
+#include  "math_utils.h"
 #include  "arch_regs.h"
 #include  "mpu.h"
 
@@ -31,7 +32,7 @@ int32_t  set_mpu_region_config(uint32_t  region,  mpu_region_config_t * config)
         return  -1;        
     }
 
-    if (config->size  < MIN_REGION_SIZE) {
+    if (config->size  < MIN_REGION_SIZE  ||  is) {
         return  -1;
     }
 
