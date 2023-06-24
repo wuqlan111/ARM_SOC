@@ -99,19 +99,6 @@ int32_t  read_from_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t 
         ret_count  =  buffer->tail - buffer->head;
     }
 
-    if (buffer->read_data_len) {
-        uint32_t  new_len  =   0;
-        if (buffer->read_data_len(buffer, &new_len)) {
-            return  -1;
-        }
-
-        if (!new_len ||  (new_len > ret_count)  ) {
-            return   -1;
-        }
-
-        ret_count   =   new_len;
-    }
-
     *len    =  ret_count;
 
     head_pos   =  buffer->head % buffer->size;
