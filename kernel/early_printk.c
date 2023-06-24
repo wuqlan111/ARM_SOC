@@ -24,7 +24,7 @@ static  ring_buffer_t early_log =  {
 int32_t  early_printk(const char * fmt,  ...)
 {
     int32_t  ret = 0;
-    char buf[MAX_INFO_LEN + 1] = {0};
+    uint8_t buf[MAX_INFO_LEN + 1] = {0};
     if (!fmt) {
         return -1;        
     }
