@@ -245,7 +245,7 @@
               <MiscControls>-mthumb -g -ffunction-sections  -Wall  -fdata-sections -fno-common -std=c99 -specs=nosys.specs -ggdb -fno-exceptions  -fno-builtin -fno-strict-aliasing</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\include\asm</IncludePath>
+              <IncludePath>..\..\include\asm;..\..\lib\include</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -368,6 +368,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\include\asm\vfp.h</FilePath>
             </File>
+            <File>
+              <FileName>ring_buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\lib\include\ring_buffer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -412,6 +417,13 @@
         </Group>
         <Group>
           <GroupName>lib</GroupName>
+          <Files>
+            <File>
+              <FileName>ring_buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\ring_buffer.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>test</GroupName>
