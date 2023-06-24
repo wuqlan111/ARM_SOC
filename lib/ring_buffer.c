@@ -120,4 +120,3 @@ int32_t  read_from_ring_buffer(ring_buffer_t * buffer, uint8_t * data, uint32_t 
 
 
 
-

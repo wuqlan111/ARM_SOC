@@ -13,10 +13,7 @@
 #endif
 
 int32_t  early_printk(const char * fmt,  ...);
-int32_t  get_early_log(char * out);
-
-
-
+int32_t  get_early_log(uint8_t * out);
 
 
 
