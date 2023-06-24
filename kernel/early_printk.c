@@ -3,14 +3,35 @@
 #include  <stdio.h>
 #include  <stdarg.h>
 
+#include "ring_buffer.h"
 #include "arch_printk.h"
 
 #define  EARLY_LOG_SIZE           8192
 #define  MAX_INFO_LEN           128
 
-char  early_log_buffer[EARLY_LOG_SIZE] = {0};
+uint8_t  early_log_buffer[EARLY_LOG_SIZE] = {0};
 static  uint32_t  head = 0;
 static  uint32_t  tail = 0;
+
+static  int32_t  get_next_log_len(ring_buffer_t * buffer, uint32_t  * len);
+
+static  ring_buffer_t  log_buffer = {
+    .buffer     =    early_log_buffer,
+    .head       =    0,
+    .tail       =    0,
+    .size       =    EARLY_LOG_SIZE,
+    .read_data_len    =    get_next_log_len,
+};
+
+
+static  int32_t  get_next_log_len(ring_buffer_t * buffer, uint32_t  * len)
+{
+    if 
+
+
+
+
+}
 
 
 int32_t  early_printk(const char * fmt,  ...)
