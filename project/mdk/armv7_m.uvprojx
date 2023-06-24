@@ -349,11 +349,6 @@
               <FilePath>..\..\include\asm\irqflags.h</FilePath>
             </File>
             <File>
-              <FileName>math_utils.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\include\asm\math_utils.h</FilePath>
-            </File>
-            <File>
               <FileName>mpu.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\include\asm\mpu.h</FilePath>
@@ -372,6 +367,11 @@
               <FileName>ring_buffer.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\lib\include\ring_buffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>math_util.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\lib\include\math_util.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -422,6 +422,11 @@
               <FileName>ring_buffer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\ring_buffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>math_util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\math_util.c</FilePath>
             </File>
           </Files>
         </Group>
