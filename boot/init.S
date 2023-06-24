@@ -27,15 +27,37 @@ extern_vector:	.space  0x1000
 
 
 	.macro  SAVE_CONTEXT
-			push   {r0-r7}
+			push   {r4-r11}
+			push   {lr}
 			mrs	   r0, control
 			push   {r0}
+			mrs   r0,   primask
+			push   {r0}
+			mrs   r0,   basepri
+			push   {r0}
+			mrs   r0,   faultmask
+			push   {r0}
+			mov    r0,    sp
+			push   {r0}
+			sub   r0,  sp, #0x20
+			mov   sp,   r0
 	.endm
 
 	.macro  RESUME_CONTEXT
+			add  r0,  sp, #0x20
+			mov  sp,    r0
+			pop  {r0}
+			mov  sp,   r0
+			pop  {r0}
+			msr  faultmask,  r0
+			pop  {r0}
+			msr  basepri, r0
+			pop  {r0}
+			msr  primask, r0
 			pop  {r0}
 			msr  control, r0
-			pop  {r0-r7}
+			pop  {LR}
+			pop  {r4-r11}
 	.endm
 
 	.macro  RETURN_FROM_EXCEPTION

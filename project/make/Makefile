@@ -17,10 +17,10 @@ CFLAGS  +=  -O0 -DDEBUG
 
 LDFLAGS = -T  $(PROJECT_ROOT)/boot/boot.ld  -Wl,-Map=$(OUTDIR)/$(TARGET_NAME).map
 
-INCLUDES =  -I$(PROJECT_ROOT)/include/asm  -I$(PROJECT_ROOT)/include/
+INCLUDES =  -I$(PROJECT_ROOT)/include/asm  -I$(PROJECT_ROOT)/include/   -I$(PROJECT_ROOT)/lib/include
 
 SRCS  =   $(PROJECT_ROOT)/boot/init.S   $(PROJECT_ROOT)/kernel/*.c    $(PROJECT_ROOT)/mm/*.c
-SRCS  +=  $(PROJECT_ROOT)/test/*.c
+SRCS  +=  $(PROJECT_ROOT)/test/*.c  $(PROJECT_ROOT)/lib/*.c
 
 
 all:
