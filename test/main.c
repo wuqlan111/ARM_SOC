@@ -5,12 +5,14 @@
 #include  "arch_printk.h"
 
 
-extern  void  mpu_test(void);
+extern  void  invalid_data_address(uint32_t is_write);
 
 int  main(void)
 {
 
-    mpu_test();
+    invalid_data_address(1);
+
+    invalid_data_address(0);
 
     while(1) ;
 
