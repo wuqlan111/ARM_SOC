@@ -9,7 +9,7 @@
 
 void  invalid_data_address(uint32_t is_write)
 {
-    uint32_t  * addr = (uint32_t *) 0x100010;
+    uint32_t  * addr = (uint32_t *) 0x100011;
     uint32_t  value  =  0;
 
     if (is_write) {
