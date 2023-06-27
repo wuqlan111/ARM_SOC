@@ -27,8 +27,7 @@ extern_vector:	.space  0x1000
 
 
 	.macro  SAVE_CONTEXT
-			push   {r4-r11}
-			push   {lr}
+			push   {r4-r11, lr}
 			mrs	   r0, control
 			push   {r0}
 			mrs   r0,   primask
@@ -56,8 +55,7 @@ extern_vector:	.space  0x1000
 			msr  primask, r0
 			pop  {r0}
 			msr  control, r0
-			pop  {LR}
-			pop  {r4-r11}
+			pop  {r4-r11, lr}
 	.endm
 
 	.macro  RETURN_FROM_EXCEPTION

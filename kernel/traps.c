@@ -3,9 +3,37 @@
 #include  <stdio.h>
 #include  <string.h>
 
-#include "arch_regs.h"
-#include "context_stack.h"
-#include "traps.h"
+#include  "arch_regs.h"
+#include  "context_stack.h"
+#include  "traps.h"
+#include  "arch_config.h"
+
+
+void  reset_init_exceptions(void)
+{
+    uint32_t  flag, mask, val;
+    
+    /*set exception group priority*/
+    val   =  7 - GROUP_EXCEPTION_PRIORITY_BIT;
+    flag   =   (0x5fa << 16) | (val << 8);
+    mask   =   (0xffff << 16) |  (0x7 << 8);
+    REG32_UPDATE(SCB_AIRCR_REG_ADDR,  flag,  mask);
+
+    /*enable memory, bus and usage fault exception*/
+    flag  =  mask = 0x7 << 16;
+    REG32_UPDATE(SCB_SHCSR_REG_ADDR,  flag,  mask);
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 void  do_NMI()

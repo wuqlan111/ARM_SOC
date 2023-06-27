@@ -373,6 +373,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\lib\include\math_util.h</FilePath>
             </File>
+            <File>
+              <FileName>arch_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\include\asm\arch_config.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

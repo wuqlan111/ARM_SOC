@@ -107,7 +107,7 @@
 #define  SCB_SHPR1_REG_ADDR                 (SCB_BASE_ADDR + 0x18)
 #define  SCB_SHPR2_REG_ADDR                 (SCB_BASE_ADDR + 0x1C)
 #define  SCB_SHPR3_REG_ADDR                 (SCB_BASE_ADDR + 0x20)
-#define  SCB_SHPRR_REG_ADDR                 (SCB_BASE_ADDR + 0x24)
+#define  SCB_SHCSR_REG_ADDR                 (SCB_BASE_ADDR + 0x24)
 #define  SCB_CFSR_REG_ADDR                  (SCB_BASE_ADDR + 0x28)
 #define  SCB_HFSR_REG_ADDR                  (SCB_BASE_ADDR + 0x2C)
 #define  SCB_DFSR_REG_ADDR                  (SCB_BASE_ADDR + 0x30)
