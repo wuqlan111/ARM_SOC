@@ -7,21 +7,28 @@
 #include  "context_stack.h"
 #include  "traps.h"
 #include  "arch_config.h"
+#include  "arch_printk.h"
+#include  "irqflags.h"
 
 
 void  reset_init_exceptions(void)
 {
     uint32_t  flag, mask, val;
     
+    SET_FAULTMASK();
     /*set exception group priority*/
     val   =  7 - GROUP_EXCEPTION_PRIORITY_BIT;
     flag   =   (0x5fa << 16) | (val << 8);
     mask   =   (0xffff << 16) |  (0x7 << 8);
+    early_printk("flag=0x%08x,\tmask=0x%08x\n", flag,  mask );
     REG32_UPDATE(SCB_AIRCR_REG_ADDR,  flag,  mask);
 
     /*enable memory, bus and usage fault exception*/
     flag  =  mask = 0x7 << 16;
+    early_printk("flag=0x%08x,\tmask=0x%08x\n", flag,  mask );
     REG32_UPDATE(SCB_SHCSR_REG_ADDR,  flag,  mask);
+
+    CLEAR_FAULTMASK();
 
 
 }
