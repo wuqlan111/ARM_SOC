@@ -11,7 +11,7 @@ TARGET_NAME = armv7
 OUTDIR = $(PROJECT_ROOT)/target
 
 CFLAGS   =  -mcpu=cortex-m3 -mthumb -g -Wall -fno-builtin -fno-strict-aliasing 
-CFLAGS  +=  -ffunction-sections -fdata-sections -fno-common -std=c99
+CFLAGS  +=  -ffunction-sections -fdata-sections -fno-common -std=gnu99
 CFLAGS  +=  -specs=nosys.specs -ggdb -fno-exceptions
 CFLAGS  +=  -O0 -DDEBUG
 

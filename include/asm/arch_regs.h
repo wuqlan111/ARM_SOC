@@ -23,25 +23,25 @@
 
 
 //read  special  register
-#define   READ_XPSR(name)    {       \
+#define   READ_XPSR(name)    ({       \
                     uint32_t val = 0;    \
-                    __asm__ volatile("\tmrs\t" name ", %0":"=r"(val)::"=r"(val));       \
-                    val;                \
-                }
+                   __asm__ volatile("mrs  %0, xpsr":"=r"(val)::);  \
+                   val;                \
+                } )
 //write  special  register
-#define   WRITE_XPSR(name, value)   {       \
+#define   WRITE_XPSR(name, value)   do{       \
                     uint32_t  val  = (value);       \
-                    __asm__ volatile("\tmsr %0, "(name)::"=r"(val):"=r"(val));  \
-                }
+                   __asm__ volatile("\tmsr %0, " name ::"r"(val):); \
+                }while(0)
 
 //update  special  register
-#define   UPDATE_XPSR(name,  value, mask)  {        \
+#define   UPDATE_XPSR(name,  value, mask)  do {        \
                     uint32_t  val  =  0;            \
                     __asm__ volatile("\tmrs\t"(name)", %0":"=r"(val)::"=r"(val));       \
                     val &= ~(mask);           \
                     val |=  ((mask) & (value));     \
                     __asm__ volatile("\tmsr %0, "(name)::"=r"(val):"=r"(val));  \
-                }
+                } while(0)
 
 #if 0
 #define  CLEAR_PRIMASK()     __asm__ volatile("\tcpsie i":::)
