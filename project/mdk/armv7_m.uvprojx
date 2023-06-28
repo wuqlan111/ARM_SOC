@@ -239,10 +239,10 @@
             <bigend>0</bigend>
             <Strict>0</Strict>
             <Optim>1</Optim>
-            <wLevel>3</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>1</uThumb>
             <VariousControls>
-              <MiscControls>-mthumb -g -ffunction-sections  -Wall  -fdata-sections -fno-common -std=gnu99 -specs=nosys.specs -ggdb -fno-exceptions  -fno-builtin -fno-strict-aliasing</MiscControls>
+              <MiscControls>-mthumb -g -ffunction-sections  -Wall  -fdata-sections -fno-common -std=gnu99  -specs=nosys.specs -ggdb -fno-exceptions  -fno-builtin -fno-strict-aliasing</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\include\asm;..\..\lib\include</IncludePath>
