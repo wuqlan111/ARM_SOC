@@ -11,6 +11,14 @@
 #include  "irqflags.h"
 
 
+#define  MEMORY_FAULT_PRIORITY     0
+#define  BUS_FAULT_PRIORITY     0
+#define  USAGE_FAULT_PRIORITY     0
+#define  SV_CALL_PRIORITY     1
+#define  DEBUG_MONITOR_PRIORITY    2
+#define  PEND_SV_PRIORITY    3
+#define  SYSTICK_PRIORITY     4
+
 void  reset_init_exceptions(void)
 {
     uint32_t  flag, mask, val;
@@ -20,12 +28,22 @@ void  reset_init_exceptions(void)
     val   =  7 - GROUP_EXCEPTION_PRIORITY_BIT;
     flag   =   (0x5fa << 16) | (val << 8);
     mask   =   (0xffff << 16) |  (0x7 << 8);
-    early_printk("flag=0x%08x,\tmask=0x%08x\n", flag,  mask );
     REG32_UPDATE(SCB_AIRCR_REG_ADDR,  flag,  mask);
 
+    /*set exception priority*/
+    flag  =  (USAGE_FAULT_PRIORITY << 16) | (BUS_FAULT_PRIORITY << 8) | MEMORY_FAULT_PRIORITY;
+    REG32_WRITE(SCB_SHPR1_REG_ADDR,  flag);
+
+    /*set svcall priority*/
+    flag  =  SV_CALL_PRIORITY  << 24;
+    REG32_WRITE(SCB_SHPR2_REG_ADDR,  flag);
+
+    /*set priority*/
+    flag = (SYSTICK_PRIORITY << 24) | (PEND_SV_PRIORITY << 16) | DEBUG_MONITOR_PRIORITY;
+    REG32_WRITE(SCB_SHPR3_REG_ADDR,  flag);
+
     /*enable memory, bus and usage fault exception*/
-    flag  =  mask = 0x7 << 16;
-    early_printk("flag=0x%08x,\tmask=0x%08x\n", flag,  mask );
+    flag  =  0x7 << 16;
     REG32_UPDATE(SCB_SHCSR_REG_ADDR,  flag,  mask);
 
     CLEAR_FAULTMASK();

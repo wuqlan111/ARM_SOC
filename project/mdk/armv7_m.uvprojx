@@ -233,7 +233,7 @@
           </ArmMisc>
           <Carm>
             <arpcs>1</arpcs>
-            <stkchk>0</stkchk>
+            <stkchk>1</stkchk>
             <reentr>0</reentr>
             <interw>0</interw>
             <bigend>0</bigend>
