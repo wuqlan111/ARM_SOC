@@ -242,7 +242,7 @@
             <wLevel>2</wLevel>
             <uThumb>1</uThumb>
             <VariousControls>
-              <MiscControls>-mthumb -g -ffunction-sections   -fdata-sections -fno-common -std=gnu99  -specs=nosys.specs -ggdb -fno-exceptions  -fno-builtin -fno-strict-aliasing</MiscControls>
+              <MiscControls>-mthumb -g -ffunction-sections   -fdata-sections -fno-common -std=gnu99  -specs=nosys.specs -ggdb -fno-exceptions  -fno-builtin -fno-strict-aliasing  -gdwarf-2</MiscControls>
               <Define>DEBUG</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\include\asm;..\..\lib\include</IncludePath>
