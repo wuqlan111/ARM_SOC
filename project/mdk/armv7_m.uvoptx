@@ -173,38 +173,6 @@
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>17</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134227542</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\git_repo\ARMv7_M\test\mm_fault_test.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\armv7_m\../../test/mm_fault_test.c\17</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>19</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134227550</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\git_repo\ARMv7_M\test\mm_fault_test.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\armv7_m\../../test/mm_fault_test.c\19</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
           <LineNumber>16</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>134222506</Address>
@@ -219,7 +187,7 @@
           <Expression>\\armv7_m\../../kernel/arch_init.c\16</Expression>
         </Bp>
         <Bp>
-          <Number>4</Number>
+          <Number>2</Number>
           <Type>0</Type>
           <LineNumber>18</LineNumber>
           <EnabledFlag>1</EnabledFlag>
@@ -235,7 +203,7 @@
           <Expression>\\armv7_m\../../kernel/arch_init.c\18</Expression>
         </Bp>
         <Bp>
-          <Number>5</Number>
+          <Number>3</Number>
           <Type>0</Type>
           <LineNumber>28</LineNumber>
           <EnabledFlag>1</EnabledFlag>
@@ -257,12 +225,17 @@
           <WinNumber>1</WinNumber>
           <ItemText>early_log_buffer</ItemText>
         </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>early_log</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
-          <SubType>0</SubType>
-          <ItemText>sp</ItemText>
+          <SubType>8</SubType>
+          <ItemText>0x0800c0f8</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
