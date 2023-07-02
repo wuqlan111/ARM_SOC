@@ -8,9 +8,9 @@
  */
 MEMORY
 {
-  FLASH : ORIGIN = 0x08000000, LENGTH = 0x100000 /* 1MB */
+  FLASH(rx) : ORIGIN = 0x08000000, LENGTH = 0x100000 /* 1MB */
   SYSTEM_RAM : ORIGIN = 0x1FFF0000, LENGTH = 0x7800 /* 30K */
-  EMBEDDED_SRAM1 : ORIGIN = 0x20000000, LENGTH = 0x1C000 /* 112K */
+  EMBEDDED_SRAM1(rwx) : ORIGIN = 0x20000000, LENGTH = 0x1C000 /* 112K */
 }
 
 OUTPUT_ARCH(arm)
@@ -19,7 +19,7 @@ ENTRY(reset_handler)
 MAIN_STACK_TOP    =  ORIGIN(EMBEDDED_SRAM1) + LENGTH(EMBEDDED_SRAM1) - 4;
 MAIN_STACK_LIMIT  =  MAIN_STACK_TOP - 0x2000;
 
-PROCESS_STACK_TOP    =  MAIN_STACK_LIMIT - 0x100;
+PROCESS_STACK_TOP    =  MAIN_STACK_LIMIT - 0x400;
 PROCESS_STACK_LIMIT  =  PROCESS_STACK_TOP - 0x2000;
 
 
@@ -141,7 +141,7 @@ SECTIONS
 		/* All data end */
 		__data_end__ = .;
 
-	} > FLASH
+	} > EMBEDDED_SRAM1
 
 	.bss :
 	{
@@ -151,7 +151,7 @@ SECTIONS
 		*(COMMON)
 		. = ALIGN(4);
 		__bss_end__ = .;
-	} > FLASH
+	} > EMBEDDED_SRAM1
 	
 	.heap (COPY):
 	{
@@ -159,7 +159,7 @@ SECTIONS
 		PROVIDE(end = .);
 		*(.heap*)
 		__HeapLimit = .;
-	} > SYSTEM_RAM
+	} > EMBEDDED_SRAM1
 
 	/* .stack_dummy section doesn't contains any symbols. It is only
 	 * used for linker to calculate size of stack sections, and assign

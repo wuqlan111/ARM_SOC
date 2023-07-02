@@ -13,9 +13,12 @@ extern  int  main(void);
 void   arch_init(void)
 {
 
-    uint32_t   *  p  =  (uint32_t *)0x0800fffc;
-    uint32_t  a   =  *p;
-     *p  =   12;
+    uint32_t  a  =  10;
+    uint32_t  *p   =  &a;
+    *p  =   12;
+
+    uint32_t  b = *p;
+
 
     reset_init_exceptions();
 
