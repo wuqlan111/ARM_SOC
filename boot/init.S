@@ -38,8 +38,8 @@ extern_vector:	.space  0x1000
 			push   {r0}
 			mov    r0,    sp
 			push   {r0}
-			sub   r0,  sp, #0x20
-			mov   sp,   r0
+			sub   r1,  sp, #0x20
+			mov   sp,   r1
 	.endm
 
 	.macro  RESUME_CONTEXT
