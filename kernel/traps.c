@@ -88,18 +88,20 @@ void  do_bus_fault(context_no_fp_regs_t regs)
     uint32_t  fault_info =  get_bus_fault_info();
     uint32_t  fault_addr = 0;
 
+    record_exception_occur_counter(BUS_FAULT_EXCEPTION_NUMBER);
     if (fault_info & BFSR_BFARVALID_MASK) {
         fault_addr  =  get_bus_fault_addr();
     }
 
     if (fault_info & ( BFSR_STKERR_MASK | BFSR_UNSTKERR_MASK) ) {
         /*stack error*/
+        __DBG_PRINTF_ALL("bus fault occured when entry or return!\n");
     } else if (fault_info & BFSR_IBUSERR_MASK) {
-
+        __DBG_PRINTF_ALL("bus fault occured on an instruction prefetch!\n");
     } else if (fault_info & BFSR_PRECISERR_MASK) {
-
+        __DBG_PRINTF_ALL("bus fault occured at addr 0x%08x on a precise data access!\n", fault_addr);
     } else if (fault_info & BFSR_IMPRECISERR_MASK) {
-
+        __DBG_PRINTF_ALL("bus fault occured on a imprecise data access!\n");
     }
 
 
@@ -112,17 +114,17 @@ void  do_usage_fault()
     uint32_t  fault_info  = get_usage_fault_info();
 
     if (fault_info & UFSR_NOCP_MASK) {
-            ;
+        __DBG_PRINTF_ALL("attempt to access a coprocessor that does not exist!\n");
     } else if (fault_info & UFSR_UNDEFINSTR_MASK) {
-        ;
+        __DBG_PRINTF_ALL("attempt to execute an unknown instruction!\n");
     } else if (fault_info & UFSR_INVSTATE_MASK) {
-        ;
+        __DBG_PRINTF_ALL("attempts to execute in an invalid EPSR state!\n");
     } else if (fault_info & UFSR_INVPC_MASK) {
-        ;
+        __DBG_PRINTF_ALL("failure of the integrity checks for exception returns!\n");
     } else if (fault_info & UFSR_UNALIGNED_MASK) {
-        ;
+        __DBG_PRINTF_ALL("attempt to access a non-word aligned location!\n");
     } else if (fault_info & UFSR_DIVBYZERO_MASK) {
-        ;
+        __DBG_PRINTF_ALL("attempt to execute SDIV or UDIV with a divisor of 0!\n");
     }
 
     return;
@@ -151,14 +153,6 @@ void  do_pendsv()
 
 void do_hard_fault()
 {
-
-
-    int32_t  a  =  0;
-
-    int32_t  ret  =  0;
-
-    ret  =  a + 1;
-
 
 
 
