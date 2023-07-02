@@ -153,8 +153,16 @@ void  do_pendsv()
 
 void do_hard_fault()
 {
+    uint32_t  cur_info  = get_cur_fault_info();
+    uint32_t  hard_info  =  get_hard_fault_info();
 
-
+    if (hard_info & (1 << 31)) {
+        __DBG_PRINTF_ALL("hard fault occured on a debug event!\n");
+    } else  if (hard_info &  0x2) {
+        __DBG_PRINTF_ALL("vector table read fault occurred!\n");
+    } else if (hard_info & (1 << 30)) {
+        __DBG_PRINTF_ALL("escalat a configurable-priority exception to HardFault!\n");
+    }
 
     return;
 

@@ -54,6 +54,12 @@ static inline  uint32_t  get_usage_fault_info(void)
     return  (val & 0xffff);
 }
 
+static inline  uint32_t  get_cur_fault_info(void)
+{
+    uint32_t  val  =  REG32_READ(SCB_CFSR_REG_ADDR) >> 16;
+    return  val;
+}
+
 
 static inline  uint32_t  get_hard_fault_info(void)
 {
