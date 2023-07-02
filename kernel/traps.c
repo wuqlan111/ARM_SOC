@@ -19,6 +19,8 @@
 #define  PEND_SV_PRIORITY    3
 #define  SYSTICK_PRIORITY     4
 
+#define  EXPTION_PRIORITY_FLAG(priority)       ((priority & 0xff) << (8 - ARCH_EXCEPTION_PRIORITY_BITS))
+
 void  reset_init_exceptions(void)
 {
     uint32_t  flag, mask, val;
@@ -31,15 +33,19 @@ void  reset_init_exceptions(void)
     REG32_UPDATE(SCB_AIRCR_REG_ADDR,  flag,  mask);
 
     /*set exception priority*/
-    flag  =  (USAGE_FAULT_PRIORITY << 16) | (BUS_FAULT_PRIORITY << 8) | MEMORY_FAULT_PRIORITY;
+    flag  =  ( EXPTION_PRIORITY_FLAG(USAGE_FAULT_PRIORITY) << 16) | 
+             ( EXPTION_PRIORITY_FLAG(BUS_FAULT_PRIORITY) << 8) 
+            | EXPTION_PRIORITY_FLAG(MEMORY_FAULT_PRIORITY);
     REG32_WRITE(SCB_SHPR1_REG_ADDR,  flag);
 
     /*set svcall priority*/
-    flag  =  SV_CALL_PRIORITY  << 24;
+    flag  =  EXPTION_PRIORITY_FLAG(SV_CALL_PRIORITY)  << 24;
     REG32_WRITE(SCB_SHPR2_REG_ADDR,  flag);
 
     /*set priority*/
-    flag = (SYSTICK_PRIORITY << 24) | (PEND_SV_PRIORITY << 16) | DEBUG_MONITOR_PRIORITY;
+    flag =  (EXPTION_PRIORITY_FLAG(SYSTICK_PRIORITY) << 24) | 
+            (EXPTION_PRIORITY_FLAG(PEND_SV_PRIORITY) << 16) |
+            EXPTION_PRIORITY_FLAG(DEBUG_MONITOR_PRIORITY);
     REG32_WRITE(SCB_SHPR3_REG_ADDR,  flag);
 
     /*enable memory, bus and usage fault exception*/
