@@ -5,15 +5,12 @@
 #include  "arch_printk.h"
 
 
-extern  void  invalid_data_address(uint32_t is_write);
+extern  void  test_mm_fault(void);
 
 int  main(void)
 {
 
-    invalid_data_address(1);
-
-    invalid_data_address(0);
-
+    test_mm_fault();
     while(1) ;
 
     return  0;

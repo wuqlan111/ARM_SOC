@@ -5,11 +5,12 @@
 
 #include  "arch_printk.h"
 
+typedef  void (* func_call)(void);
 
 
-void  invalid_data_address(uint32_t is_write)
+static  void  invalid_data_access(uint32_t is_write)
 {
-    uint32_t  * addr = (uint32_t *) 0x100011;
+    uint32_t  * addr  =  (uint32_t *)0xb000;
     uint32_t  value  =  0;
 
     if (is_write) {
@@ -20,19 +21,33 @@ void  invalid_data_address(uint32_t is_write)
         __DBG_PRINTF_ALL("read from addr--%p,\tvalue--0x%08x\n", addr,  value);
     }
 
-    uint32_t   a, b = 0;
-    a =  b + 2;
-    __DBG_PRINTF_ALL("read or write successfully\n");
+    __DBG_PRINTF_ALL("memory data access\n");
 
 }
 
 
 
+static  void  invalid_execuate_instruction()
+{
+    uint32_t  value  =  0;    
+    func_call  func  = (func_call  * ) &value;
+
+    func();
+
+    __DBG_PRINTF_ALL("in\n");
+
+}
 
 
 
+void  test_mm_fault(void)
+{
+    invalid_data_access(1);
+    invalid_data_access(0);
 
+    invalid_execuate_instruction();
 
+}
 
 
 

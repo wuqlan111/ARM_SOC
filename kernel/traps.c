@@ -21,6 +21,8 @@
 
 #define  EXPTION_PRIORITY_FLAG(priority)       ((priority & 0xff) << (8 - ARCH_EXCEPTION_PRIORITY_BITS))
 
+static  uint32_t  excetion_counter[ARCH_MAX_SYSTEM_EXCETION + 1] = {0};
+
 void  reset_init_exceptions(void)
 {
     uint32_t  flag, mask, val;
@@ -58,8 +60,14 @@ void  reset_init_exceptions(void)
 }
 
 
+void  record_exception_occur_counter(uint32_t  exception)
+{
+    if (exception > ARCH_MAX_SYSTEM_EXCETION) {
+        return;
+    }
 
-
+    excetion_counter[exception]++;
+}
 
 
 

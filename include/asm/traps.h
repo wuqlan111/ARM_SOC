@@ -23,6 +23,19 @@
 #define  HFSR_FORCED_MASK        (1<<30U)
 #define  HFSR_VECTTBL_MASK       (2U)
 
+enum {
+    NMI_EXCEPTION_NUMBER = 0,
+    HARD_FAULT_EXCEPTION_NUMBER,
+    MEMORY_FAULT_EXCEPTION_NUMBER,
+    NMI_EXCEPTION_NUMBER,
+    BUS_FAULT_EXCEPTION_NUMBER,
+    USAGE_FAULT_EXCEPTION_NUMBER,
+    SVCALL_EXCEPTION_NUMBER,
+    DEBUG_EXCEPTION_NUMBER,
+    PENDSV_EXCEPTION_NUMBER,
+    SYSTICK_EXCEPTION_NUMBER,
+    ARCH_MAX_SYSTEM_EXCETION  = SYSTICK_EXCEPTION_NUMBER,
+};
 
 static inline  uint32_t  get_bus_fault_addr(void)
 {
@@ -47,7 +60,7 @@ static inline  uint32_t  get_hard_fault_info(void)
     return  REG32_READ(SCB_HFSR_REG_ADDR);
 }
 
-
+void  record_exception_occur_counter(uint32_t  exception);
 
 
 #endif
