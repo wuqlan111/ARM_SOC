@@ -17,14 +17,7 @@ typedef struct {
 
 
 typedef struct {
-    uint32_t  r0;
-    uint32_t  r1;
-    uint32_t  r2;
-    uint32_t  r3;
-    uint32_t  r12;
-    uint32_t  r14;
-    uint32_t  ret_addr;
-    uint32_t  xpsr;
+    context_no_fp_regs_t  common_regs;
     uint32_t  s0;
     uint32_t  s1;
     uint32_t  s2;

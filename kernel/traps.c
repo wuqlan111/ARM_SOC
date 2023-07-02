@@ -75,7 +75,7 @@ void  record_exception_occur_counter(uint32_t  exception)
 
 
 
-void  do_NMI()
+void  do_NMI(context_no_fp_regs_t regs)
 {
 
 
@@ -109,7 +109,7 @@ void  do_bus_fault(context_no_fp_regs_t regs)
 }
 
 
-void  do_usage_fault()
+void  do_usage_fault(context_no_fp_regs_t regs)
 {
     uint32_t  fault_info  = get_usage_fault_info();
 
@@ -132,26 +132,26 @@ void  do_usage_fault()
 }
 
 
-void  do_svcall()
+void  do_svcall(context_no_fp_regs_t regs)
 {
 
 
 }
 
-void  do_debug()
+void  do_debug(context_no_fp_regs_t regs)
 {
 
 
 }
 
-void  do_pendsv()
+void  do_pendsv(context_no_fp_regs_t regs)
 {
 
 
 }
 
 
-void do_hard_fault()
+void do_hard_fault(context_no_fp_regs_t regs)
 {
     uint32_t  cur_info  = get_cur_fault_info();
     uint32_t  hard_info  =  get_hard_fault_info();
