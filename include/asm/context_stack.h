@@ -5,12 +5,15 @@
 #include  "arch_regs.h"
 #include  "gcc_type.h"
 
+
 typedef struct {
-    uint32_t  sp;
     uint32_t  faultmask;
     uint32_t  basepri;
     uint32_t  primask;
     uint32_t  control;
+    uint32_t  r4;
+    uint32_t  r5;
+    uint32_t  r6;
     uint32_t  r7;
     uint32_t  r8;
     uint32_t  r9;
@@ -54,14 +57,13 @@ typedef struct {
 
 
 typedef struct {
+    context_user_regs_t  user_regs;    
     context_system_regs_t  common_regs;
-    context_user_regs_t  user_regs;
 } ATTRIBUTE_PACK  context_exception_no_fp_regs_t;
 
 typedef struct {
-    context_system_regs_t  common_regs;
+    context_exception_no_fp_regs_t   no_fp_context;
     context_fp_regs_t    fp_regs;
-    context_user_regs_t  user_regs;
 } ATTRIBUTE_PACK  context_exception_fp_regs_t;
 
 

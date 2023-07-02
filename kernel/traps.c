@@ -118,6 +118,7 @@ void  do_usage_fault(context_exception_no_fp_regs_t * regs)
     } else if (fault_info & UFSR_UNDEFINSTR_MASK) {
         __DBG_PRINTF_ALL("attempt to execute an unknown instruction!\n");
     } else if (fault_info & UFSR_INVSTATE_MASK) {
+        
         __DBG_PRINTF_ALL("attempts to execute in an invalid EPSR state!\n");
     } else if (fault_info & UFSR_INVPC_MASK) {
         __DBG_PRINTF_ALL("failure of the integrity checks for exception returns!\n");
