@@ -24,10 +24,9 @@ static  inline  uint32_t  get_memory_fault_info(void)
 }
 
 
-void  do_mem_fault(context_no_fp_regs_t regs)
+void  do_mem_fault(context_exception_no_fp_regs_t * regs)
 {
     disable_irq();
-    context_no_fp_regs_t * no_fp_context = &regs;
     record_exception_occur_counter(MEMORY_FAULT_EXCEPTION_NUMBER);
 
     uint32_t  mmfalut_info = get_memory_fault_info();

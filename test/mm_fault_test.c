@@ -10,7 +10,7 @@ typedef  void (* func_call)(void);
 
 static  void  invalid_data_access(uint32_t is_write)
 {
-    uint32_t  * addr  =  (uint32_t *)0xb000;
+    uint32_t  * addr  =  (uint32_t *)0x10001233;
     uint32_t  value  =  0;
 
     if (is_write) {
@@ -30,7 +30,7 @@ static  void  invalid_data_access(uint32_t is_write)
 static  void  invalid_execuate_instruction()
 {
     uint32_t  value  =  0;    
-    func_call  func  = (func_call  * ) &value;
+    func_call  func  = (func_call ) &value;
 
     func();
 

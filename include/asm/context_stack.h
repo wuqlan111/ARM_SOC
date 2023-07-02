@@ -6,13 +6,17 @@
 #include  "gcc_type.h"
 
 typedef struct {
+    uint32_t  sp;
+    uint32_t  faultmask;
+    uint32_t  basepri;
+    uint32_t  primask;
+    uint32_t  control;
     uint32_t  r7;
     uint32_t  r8;
     uint32_t  r9;
     uint32_t  r10;
     uint32_t  r11;
     uint32_t  lr;
-    uint32_t  sp;
 } ATTRIBUTE_PACK context_user_regs_t;
 
 
