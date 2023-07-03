@@ -398,6 +398,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\kernel\traps.c</FilePath>
             </File>
+            <File>
+              <FileName>svcall_func.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\kernel\svcall_func.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
