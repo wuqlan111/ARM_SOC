@@ -67,6 +67,7 @@ static inline  uint32_t  get_hard_fault_info(void)
 
 void  record_exception_occur_counter(uint32_t  exception);
 
+int32_t  get_svcall_func(uint32_t  svcall_number,  void ** func);
 
 #endif
 

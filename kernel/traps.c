@@ -23,8 +23,6 @@
 
 static  uint32_t  excetion_counter[ARCH_MAX_SYSTEM_EXCETION + 1] = {0};
 
-static   uint32_t  svcall_function[] = {0};
-
 void  reset_init_exceptions(void)
 {
     uint32_t  flag, mask, val;
@@ -146,8 +144,15 @@ void  do_svcall(context_exception_no_fp_regs_t * regs)
     int32_t  ret  =  {0};
     uint16_t * svc_instruction = (uint16_t *)(((uint8_t *)regs->common_regs.ret_addr) - 2);
     uint32_t  svc_number   =  *svc_instruction & 0xff;
-    uint32_t  func  =  svcall_function[svc_number];
     uint32_t * r0_addr  =  &regs->common_regs.r0;
+    void * svc_func  = NULL;
+
+    if (get_svcall_func(svc_number, &svc_func)) {
+        __DBG_PRINTF_ALL("get svcall func failed!\n");
+        return;
+    }
+
+    uintptr_t  func  =  (uintptr_t)svc_func;
 
     __asm__  volatile("mov r0, %0\n"
                     "mov  r1, %1\n"
