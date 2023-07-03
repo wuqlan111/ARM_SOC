@@ -143,6 +143,7 @@ void  do_svcall(context_exception_no_fp_regs_t * regs)
         return;
     }
 
+    int32_t  ret  =  {0};
     uint16_t * svc_instruction = (uint16_t *)(((uint8_t *)regs->common_regs.ret_addr) - 2);
     uint32_t  svc_number   =  *svc_instruction & 0xff;
     uint32_t  func  =  svcall_function[svc_number];
@@ -165,7 +166,9 @@ void  do_svcall(context_exception_no_fp_regs_t * regs)
     __asm__  volatile("nop");
     __asm__  volatile("pop {lr}");
 
-
+    __asm__  volatile("mov  %0,  r0":"=r"(ret)::);
+    regs->common_regs.r0   =  ret;
+    return;
 }
 
 

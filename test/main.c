@@ -6,6 +6,8 @@
 
 
 extern  void  test_mm_fault(void);
+extern  int32_t  svcall_test(uint32_t  param1,  uint32_t param2,  
+            uint32_t param3,  uint32_t  param4);
 
 int  main(void)
 {
