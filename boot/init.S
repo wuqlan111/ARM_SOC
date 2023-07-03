@@ -95,8 +95,6 @@ reset_handler:
 		msr    psp,  r0
 		b   arch_init
 
-
-
     def_irq_handler  NMI_handler
 		SAVE_CONTEXT
 		bl  do_NMI
@@ -132,16 +130,28 @@ reset_handler:
 		RETURN_FROM_EXCEPTION
 
     def_irq_handler  svcall_handler
-			b  .
+		SAVE_CONTEXT
+		bl  do_svcall
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
 
     def_irq_handler  debug_handler
-			b  .
+		SAVE_CONTEXT
+		bl  .
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
 
     def_irq_handler  pendsv_handler
-			b   .
+		SAVE_CONTEXT
+		bl  .
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
 
     def_irq_handler  systick_handler
-			b  .
+		SAVE_CONTEXT
+		bl  .
+		RESUME_CONTEXT
+		RETURN_FROM_EXCEPTION
 
 
 	

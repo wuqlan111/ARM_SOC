@@ -23,6 +23,8 @@
 
 static  uint32_t  excetion_counter[ARCH_MAX_SYSTEM_EXCETION + 1] = {0};
 
+static   uint32_t  svcall_function[] = {0};
+
 void  reset_init_exceptions(void)
 {
     uint32_t  flag, mask, val;
@@ -135,9 +137,39 @@ void  do_usage_fault(context_exception_no_fp_regs_t * regs)
 
 void  do_svcall(context_exception_no_fp_regs_t * regs)
 {
+    record_exception_occur_counter(SVCALL_EXCEPTION_NUMBER);
+
+    if (!regs) {
+        return;
+    }
+
+    uint16_t * svc_instruction = (uint16_t *)(((uint8_t *)regs->common_regs.ret_addr) - 2);
+    uint32_t  svc_number   =  *svc_instruction & 0xff;
+    uint32_t  func  =  svcall_function[svc_number];
+    uint32_t * r0_addr  =  &regs->common_regs.r0;
+
+    __asm__  volatile("mov r0, %0\n"
+                    "mov  r1, %1\n"
+                    "mov  r2, %2\n"
+                    "mov  r3, %3"::"r"(regs->common_regs.r0),"r"(regs->common_regs.r1),
+                        "r"(regs->common_regs.r2), "r"(regs->common_regs.r3):);
+
+    __asm__  volatile("push  {lr}");
+    __asm__  volatile("add lr, pc, #8":::);
+    __asm__  volatile ("mov pc, %0"::"r"(func):);
+    __asm__  volatile("nop");
+    __asm__  volatile("nop");
+    __asm__  volatile("nop");
+    __asm__  volatile("nop");
+    __asm__  volatile("nop");
+    __asm__  volatile("nop");
+    __asm__  volatile("pop {lr}");
 
 
 }
+
+
+
 
 void  do_debug(context_exception_no_fp_regs_t * regs)
 {

@@ -157,9 +157,25 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
+          <LineNumber>134</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134222524</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>E:\git_repo\ARMv7_M\boot\init.S</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\armv7_m\../../boot/init.S\134</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
           <LineNumber>16</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134222504</Address>
+          <Address>134222816</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -171,11 +187,11 @@
           <Expression>\\armv7_m\../../kernel/arch_init.c\16</Expression>
         </Bp>
         <Bp>
-          <Number>1</Number>
+          <Number>2</Number>
           <Type>0</Type>
           <LineNumber>18</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134222508</Address>
+          <Address>134222820</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -187,27 +203,11 @@
           <Expression>\\armv7_m\../../kernel/arch_init.c\18</Expression>
         </Bp>
         <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>129</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134222406</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\git_repo\ARMv7_M\boot\init.S</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\armv7_m\../../boot/init.S\129</Expression>
-        </Bp>
-        <Bp>
           <Number>3</Number>
           <Type>0</Type>
           <LineNumber>114</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134223356</Address>
+          <Address>134223668</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -223,7 +223,7 @@
           <Type>0</Type>
           <LineNumber>33</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134222562</Address>
+          <Address>134222874</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -561,7 +561,7 @@
 
   <Group>
     <GroupName>kernel</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -681,7 +681,7 @@
 
   <Group>
     <GroupName>test</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
