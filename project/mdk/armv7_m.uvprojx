@@ -468,6 +468,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\test\trap_test.c</FilePath>
             </File>
+            <File>
+              <FileName>svcall_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\test\svcall_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

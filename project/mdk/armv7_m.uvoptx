@@ -173,22 +173,6 @@
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>16</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134222816</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\git_repo\ARMv7_M\kernel\arch_init.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\armv7_m\../../kernel/arch_init.c\16</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
           <LineNumber>18</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>134222820</Address>
@@ -203,7 +187,7 @@
           <Expression>\\armv7_m\../../kernel/arch_init.c\18</Expression>
         </Bp>
         <Bp>
-          <Number>3</Number>
+          <Number>2</Number>
           <Type>0</Type>
           <LineNumber>114</LineNumber>
           <EnabledFlag>1</EnabledFlag>
@@ -219,20 +203,20 @@
           <Expression>\\armv7_m\../../kernel/traps.c\114</Expression>
         </Bp>
         <Bp>
-          <Number>4</Number>
+          <Number>3</Number>
           <Type>0</Type>
-          <LineNumber>33</LineNumber>
+          <LineNumber>16</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134222874</Address>
+          <Address>134227746</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\git_repo\ARMv7_M\kernel\early_printk.c</Filename>
+          <Filename>E:\git_repo\ARMv7_M\test\main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\armv7_m\../../kernel/early_printk.c\33</Expression>
+          <Expression>\\armv7_m\../../test/main.c\16</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -754,6 +738,18 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\test\trap_test.c</PathWithFileName>
       <FilenameWithoutPath>trap_test.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>34</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\test\svcall_test.c</PathWithFileName>
+      <FilenameWithoutPath>svcall_test.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
