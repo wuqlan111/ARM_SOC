@@ -403,6 +403,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\kernel\svcall_func.c</FilePath>
             </File>
+            <File>
+              <FileName>systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\kernel\systick.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -149,7 +149,7 @@ reset_handler:
 
     def_irq_handler  systick_handler
 		SAVE_CONTEXT
-		bl  .
+		bl  do_systick
 		RESUME_CONTEXT
 		RETURN_FROM_EXCEPTION
 
