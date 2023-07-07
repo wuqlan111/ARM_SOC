@@ -72,13 +72,10 @@ void  record_exception_occur_counter(uint32_t  exception)
 
 
 
-
-
-
 void  do_NMI(context_exception_no_fp_regs_t * regs)
 {
 
-
+    record_exception_occur_counter(NMI_EXCEPTION_NUMBER);
 
 }
 
