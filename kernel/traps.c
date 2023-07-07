@@ -113,6 +113,8 @@ void  do_usage_fault(context_exception_no_fp_regs_t * regs)
 {
     uint32_t  fault_info  = get_usage_fault_info();
 
+    record_exception_occur_counter(USAGE_FAULT_EXCEPTION_NUMBER);
+
     if (fault_info & UFSR_NOCP_MASK) {
         __DBG_PRINTF_ALL("attempt to access a coprocessor that does not exist!\n");
     } else if (fault_info & UFSR_UNDEFINSTR_MASK) {
@@ -160,15 +162,16 @@ void  do_svcall(context_exception_no_fp_regs_t * regs)
                     "mov  r3, %3"::"r"(regs->common_regs.r0),"r"(regs->common_regs.r1),
                         "r"(regs->common_regs.r2), "r"(regs->common_regs.r3):);
 
+    /*save lr*/
     __asm__  volatile("push  {lr}");
-    __asm__  volatile("add lr, pc, #8":::);
+
+    /*set new lr = pc + 8, but bit0 must set 1 for THUMB state*/
+    __asm__  volatile("add lr, pc, #9":::);
     __asm__  volatile ("mov pc, %0"::"r"(func):);
-    __asm__  volatile("nop");
-    __asm__  volatile("nop");
-    __asm__  volatile("nop");
-    __asm__  volatile("nop");
-    __asm__  volatile("nop");
-    __asm__  volatile("nop");
+    __NOP();
+    __NOP();
+    __NOP();
+    __NOP();
     __asm__  volatile("pop {lr}");
 
     __asm__  volatile("mov  %0,  r0":"=r"(ret)::);
@@ -181,29 +184,54 @@ void  do_svcall(context_exception_no_fp_regs_t * regs)
 
 void  do_debug(context_exception_no_fp_regs_t * regs)
 {
-
+    record_exception_occur_counter(DEBUG_EXCEPTION_NUMBER);
 
 }
 
 void  do_pendsv(context_exception_no_fp_regs_t * regs)
 {
-
+    record_exception_occur_counter(PENDSV_EXCEPTION_NUMBER);
 
 }
 
 
 void do_hard_fault(context_exception_no_fp_regs_t * regs)
 {
+    uint32_t  flag, other_fault_escalat;
     uint32_t  cur_info  = get_cur_fault_info();
     uint32_t  hard_info  =  get_hard_fault_info();
+
+    flag  =   other_fault_escalat  =  0;
+
+    record_exception_occur_counter(HARD_FAULT_EXCEPTION_NUMBER);
 
     if (hard_info & (1 << 31)) {
         __DBG_PRINTF_ALL("hard fault occured on a debug event!\n");
     } else  if (hard_info &  0x2) {
         __DBG_PRINTF_ALL("vector table read fault occurred!\n");
     } else if (hard_info & (1 << 30)) {
-        __DBG_PRINTF_ALL("escalat a configurable-priority exception to HardFault!\n");
+        other_fault_escalat   =  1;
+        __DBG_PRINTF_ALL("escalate a configurable-priority exception to HardFault!\n");
     }
+
+    flag  =  cur_info >>  16;
+    if (flag) {
+        record_exception_occur_counter(USAGE_FAULT_EXCEPTION_NUMBER);
+        __DBG_PRINTF_ALL("usage fault escalated, flag 0x%04x!", flag);
+    }
+
+    flag  =  (cur_info >> 8) & 0xff;
+    if (flag) {
+        record_exception_occur_counter(BUS_FAULT_EXCEPTION_NUMBER);
+        __DBG_PRINTF_ALL("bus fault escalated, flag 0x%02x!", flag);
+    }
+
+    flag  =  cur_info & 0xff;
+    if (flag) {
+        record_exception_occur_counter(MEMORY_FAULT_EXCEPTION_NUMBER);
+        __DBG_PRINTF_ALL("memory fault escalated, flag 0x%02x!", flag);
+    }
+
 
     return;
 
